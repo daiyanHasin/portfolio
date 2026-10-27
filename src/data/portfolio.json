@@ -1,182 +1,391 @@
 {
   "meta": {
-    "siteTitle": "An Unfinished Study",
-    "siteDescription": "A portfolio exploring technology, systems, and visual thought.",
+    "siteTitle": "Hasin Md. Daiyan",
+    "siteDescription": "Hasin Md. Daiyan: computer vision and machine learning research, test automation, and tools for people who build with AI.",
     "locale": "en",
-    "version": "1.0.0"
+    "version": "2.0.0"
   },
   "identity": {
-    "displayName": "Your Name",
-    "studyTitle": "Study for an attentive field",
-    "headline": ["Order exists", "only where", "you look."],
-    "shortBio": "A technologist exploring intelligence, complexity, and the ways an idea becomes something you can touch.",
-    "positioning": "Builds systems. Questions them afterwards.",
-    "status": "Exploring new ideas",
-    "location": "Your Location",
+    "displayName": "Hasin Md. Daiyan",
+    "studyTitle": "Computer vision, machine learning and automation",
+    "headline": ["Reach for", "what isn't", "built yet."],
+    "shortBio": "Computer Science graduate working in computer vision and machine learning, with published IEEE research on diffusion-based satellite image reconstruction. Day to day I build automation with Playwright and Appium, and tools that make code easier to understand.",
+    "positioning": "Researches models. Builds the tools around them.",
+    "status": "Open to research and engineering roles",
+    "location": "Dhaka, Bangladesh",
+    "resumeUrl": "",
     "label": [
-      { "key": "Medium", "value": "Points, a few rules, your pointer" },
-      { "key": "Dimensions", "value": "Variable" },
-      { "key": "Status", "value": "Exploring new ideas" }
+      { "key": "Now", "value": "Automation Engineer Intern, TechHub, Save the Children" },
+      { "key": "Studying", "value": "M.Sc. Management of Technology, BUET" },
+      { "key": "Based in", "value": "Dhaka, Bangladesh" }
     ]
   },
   "navigation": [
     { "id": "home", "label": "Index", "target": "home" },
-    { "id": "work", "label": "Selected work", "target": "work" },
-    { "id": "thinking", "label": "Fragments", "target": "thinking" },
+    { "id": "work", "label": "Projects", "target": "work" },
+    { "id": "research", "label": "Research", "target": "research" },
+    { "id": "about", "label": "About", "target": "about" },
     { "id": "contact", "label": "Contact", "target": "contact" }
   ],
   "scenes": {
-    "home": { "title": "Index", "description": "Move across the field. It holds its shape only where you are looking." },
+    "home": { "title": "Index", "description": "Move across the sky. The hand holds its shape wherever you look." },
     "work": {
-      "title": "Selected work",
-      "description": "Four studies, all unfinished. Open one to see how it was made and where it falls short."
+      "title": "Projects",
+      "description": "Tools, test frameworks and machine learning studies. Open one to see how it was made."
     },
-    "thinking": {
-      "title": "Fragments",
-      "description": "Notes toward questions that have not settled yet."
+    "research": {
+      "title": "Research",
+      "description": "Published and submitted work in computer vision and financial machine learning."
+    },
+    "about": {
+      "title": "About",
+      "description": "Where I have worked, studied and led."
     },
     "contact": {
       "title": "Contact",
-      "description": "Write about an idea, a system, or something that does not exist yet."
+      "description": "Write about research, a role, or something that does not exist yet."
     }
   },
-  "interests": [
-    {
-      "id": "intelligence",
-      "group": "research",
-      "title": "Intelligence and uncertainty",
-      "description": "How reliable is information a machine generated, and how would anyone know? Placeholder: replace with your own framing."
-    },
-    {
-      "id": "systems",
-      "group": "research",
-      "title": "Complex systems",
-      "description": "How structure and behaviour emerge from many simple interacting parts, and how they come apart again."
-    },
-    {
-      "id": "boundaries",
-      "group": "research",
-      "title": "Deterministic and uncertain",
-      "description": "Where a predictable system stops being predictable, and what is worth building at that edge."
-    },
-    {
-      "id": "visual-thinking",
-      "group": "creative",
-      "title": "Visual thinking",
-      "description": "Turning an abstract concept into an image, a sequence, or an interaction someone can move through."
-    },
-    {
-      "id": "representation",
-      "group": "creative",
-      "title": "Abstraction and representation",
-      "description": "How little of a thing has to be shown before a viewer completes it themselves."
-    }
-  ],
-  "statements": [
-    "Meaning is not always given in advance.",
-    "Every system has a boundary. The interesting part is what it does there.",
-    "A rule repeated long enough will eventually disobey itself.",
-    "The unfinished is still in motion."
-  ],
   "projects": [
     {
-      "id": "project-alpha",
-      "title": "Project Alpha",
-      "category": "Research",
+      "id": "codebase",
+      "title": "CodeBase",
+      "category": "Developer tool",
       "year": "2026",
-      "summary": "A study of reliability and uncertainty in complex information systems.",
-      "description": "Placeholder. Replace this with a short overview of the project in two or three sentences.",
-      "problem": "Placeholder. What question did this project begin with?",
-      "idea": "Placeholder. The central idea, stated as plainly as possible.",
-      "approach": "Placeholder. How you went about it: data, methods, the order of decisions.",
-      "results": "Placeholder. What you observed. Only report results you can stand behind.",
-      "limitations": "Placeholder. Where it fails, what it does not cover, what you would try next.",
-      "technologies": ["Python", "Machine learning", "Data analysis"],
-      "links": { "live": "", "repository": "", "caseStudy": "" },
-      "visual": { "type": "drift", "accent": "copper", "seed": 11 },
+      "summary": "Know how a project works, not just where its files are.",
+      "description": "Open a folder or a GitHub link and CodeBase finds the project's architecture, traces each user journey end to end, explains every version in plain words, and hands any AI chat exactly the slice of code it needs.",
+      "problem": "Free AI chats can read only a few thousand words at a time. Paste too little and the AI guesses; paste too much and it forgets the start. Either way, a fix in one file breaks another.",
+      "idea": "Be the librarian, not the expert. CodeBase knows the whole project and builds one block of text that fits the chat: instructions, a project brief, the task, the few files that matter, and outlines of the files around them.",
+      "approach": "Architecture, flows and history come from reading the code and Git, without running it and without AI. It ships as one small executable for Windows, macOS and Linux that serves a local web interface.",
+      "details": "Offline and free: no account, no API key, no telemetry. Nothing leaves the computer until the user pastes it somewhere.",
+      "technologies": ["Rust", "Static analysis", "Git", "Local web UI"],
+      "links": { "live": "", "repository": "https://github.com/daiyanHasin/CodeBase", "caseStudy": "" },
+      "visual": { "type": "lattice", "accent": "sky", "seed": 11 },
       "featured": true
     },
     {
-      "id": "project-beta",
-      "title": "Project Beta",
-      "category": "Engineering",
+      "id": "understudy",
+      "title": "Understudy",
+      "category": "Test automation",
       "year": "2026",
-      "summary": "An experiment in automated validation and system behaviour.",
-      "description": "Placeholder. Replace this with a short overview of the project in two or three sentences.",
-      "problem": "Placeholder. What question did this project begin with?",
-      "idea": "Placeholder. The central idea, stated as plainly as possible.",
-      "approach": "Placeholder. How you went about it.",
-      "limitations": "Placeholder. Where it fails.",
-      "technologies": ["TypeScript", "Automation", "Testing"],
-      "links": { "live": "", "repository": "https://github.com/your-handle/project-beta", "caseStudy": "" },
-      "visual": { "type": "concentric", "accent": "chartreuse", "seed": 23 },
+      "summary": "Record Android tests by clicking, feed them Excel data, run them with Maestro.",
+      "description": "A local app for Android UI test automation on top of the Maestro CLI. Version 2 of what began as X-Maestro Flow Runner: click an element on the phone screen, choose an action, and decide whether a typed value is fixed text or an Excel column.",
+      "problem": "Maestro has no Excel data-driven testing, little feedback about which step is running, and no run history. Twenty data sets meant twenty copies of a flow or twenty command lines.",
+      "approach": "Record in one window, run any flows with any Excel rows, watch every step live, and read one report per test with run comparison and flaky-test detection. Screenshots are compressed on the phone, about ten times smaller than PNG.",
+      "details": "Everything runs on the PC: no account, no cloud, no upload. Light and dark themes.",
+      "technologies": ["JavaScript", "Node.js", "Maestro", "Android (adb)", "Excel"],
+      "links": { "live": "", "repository": "https://github.com/daiyanHasin/understudy", "caseStudy": "" },
+      "visual": { "type": "frames", "accent": "coral", "seed": 23 },
       "featured": true
     },
     {
-      "id": "project-gamma",
-      "title": "Project Gamma",
-      "category": "Interface",
-      "year": "2025",
-      "summary": "An interface that tries to explain a system to the person standing inside it.",
-      "description": "Placeholder. Replace this with a short overview of the project.",
-      "idea": "Placeholder. The central idea.",
-      "approach": "Placeholder. How you went about it.",
-      "technologies": ["React", "Information design"],
-      "links": { "live": "", "repository": "", "caseStudy": "" },
-      "visual": { "type": "monolith", "accent": "mineral", "seed": 37 },
+      "id": "researchtrail",
+      "title": "ResearchTrail",
+      "category": "Research tool",
+      "year": "2026",
+      "summary": "Keep what you read next to what you build.",
+      "description": "A local research notebook for students and independent researchers. Paste a paper link and it becomes a structured card; point it at a project folder and every save of the code is kept. Stage by stage, it shows what each paper did next to what your code does.",
+      "problem": "Three months into a thesis the questions are always the same: which paper did this preprocessing step come from, and why did accuracy drop between two drafts? Reference managers don't know your code, and Git doesn't know your papers.",
+      "approach": "Paper cards record data, preprocessing, features, model, training and evaluation, each item linked to its source sentence. Code history works without Git, and a per-stage comparison matrix puts every paper beside your own work.",
+      "limitations": "Working draft (v0.1). The core loop works end to end and has tests, but it is not yet something to rely on for a thesis.",
+      "technologies": ["Rust", "Information retrieval", "Local-first"],
+      "links": { "live": "", "repository": "https://github.com/daiyanHasin/Researchtrail", "caseStudy": "" },
+      "visual": { "type": "strata", "accent": "violet", "seed": 31 },
       "featured": true
     },
     {
-      "id": "project-delta",
-      "title": "Project Delta",
-      "category": "Visual experiment",
+      "id": "test-automation-practice",
+      "title": "QA automation frameworks",
+      "category": "Test automation",
+      "year": "2026",
+      "summary": "Two behaviour-driven UI test frameworks in C#, Playwright and Reqnroll.",
+      "description": "End-to-end BDD frameworks for OrangeHRM (an HR system, 12 scenarios) and ParaBank (an online bank), with smoke, regression and E2E suites, multi-role flows and HTML reports.",
+      "approach": "Gherkin scenarios bound to C# steps, page objects with selectors kept in one place, Excel-driven test data, tag-based login hooks, and cross-browser runs headed locally or headless in GitHub Actions.",
+      "details": "Built to stay stable on a slow shared demo site: explicit visibility waits, navigation retries, and autocomplete handling that checks the selection actually took.",
+      "technologies": ["C#", ".NET", "Playwright", "Reqnroll", "NUnit", "GitHub Actions"],
+      "links": {
+        "live": "https://test-automation-practice-hasindaiyan.vercel.app",
+        "repository": "https://github.com/daiyanHasin/test-automation-practice",
+        "caseStudy": ""
+      },
+      "visual": { "type": "monolith", "accent": "teal", "seed": 37 },
+      "featured": true
+    },
+    {
+      "id": "koineze",
+      "title": "Koineze",
+      "category": "Personal finance app",
+      "year": "2026",
+      "summary": "A pocket ledger for everyday taka, logged in two taps.",
+      "description": "Tracks daily spending, salary, bank, bKash and cash balances, loans, big purchases and saving plans. It began as a PHP and MySQL web app and was rebuilt as an installable mobile web app.",
+      "idea": "Answer the questions that matter on the way home: how much is left, and was today an expensive day? It knows the office week, so it can show what an office day really costs compared with a home day.",
+      "details": "Private by design: each database row is locked to its owner, with no ads, trackers or third-party scripts. Old Notepad notes can be pasted in and become real entries.",
+      "technologies": ["Next.js", "Tailwind CSS", "Supabase", "PWA"],
+      "links": { "live": "", "repository": "https://github.com/daiyanHasin/koineze", "caseStudy": "" },
+      "visual": { "type": "concentric", "accent": "gold", "seed": 43 },
+      "featured": true
+    },
+    {
+      "id": "nyc-taxi",
+      "title": "NYC taxi trip analysis",
+      "category": "Big data, machine learning",
       "year": "2025",
-      "summary": "A generative sequence about time, built from very few rules.",
-      "description": "Placeholder. Replace this with a short overview of the project.",
-      "idea": "Placeholder. The central idea.",
-      "limitations": "Placeholder. Where it fails.",
-      "technologies": ["Canvas", "Generative systems"],
+      "summary": "Geospatial and temporal patterns in large-scale New York taxi data.",
+      "description": "Predicting taxi trip duration with PySpark, comparing classical machine learning with deep learning, and clustering trips to find patterns across the city.",
+      "approach": "Cleaned invalid records, engineered features such as trip duration, distance, hour of day and day of week, then trained linear regression, gradient-boosted trees, CNN and LSTM models and ran K-means clustering.",
+      "results": "Gradient-boosted trees reached 70.4% accuracy within a 10% range, and LSTM 71.4%. Demand peaked on Fridays and Saturdays, and weekday trips ran longer because of traffic.",
+      "technologies": ["PySpark", "Hadoop", "Python", "Matplotlib", "Seaborn"],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/daiyanHasin/Exploring-New-York-Taxi-Trip-Duration-with-Big-and-PySpark",
+        "caseStudy": ""
+      },
+      "visual": { "type": "drift", "accent": "gold", "seed": 52 },
+      "featured": false
+    },
+    {
+      "id": "satellite-object-detection",
+      "title": "Object detection from satellite images",
+      "category": "Computer vision",
+      "year": "2024",
+      "summary": "Finding and locating objects in high-resolution satellite imagery.",
+      "description": "Trained YOLOv5 and Fast R-CNN detectors on satellite imagery with COCO-format annotations, from preprocessing to inference with bounding-box overlays.",
+      "technologies": ["YOLOv5", "Fast R-CNN", "PyTorch", "OpenCV", "Python"],
+      "links": { "live": "", "repository": "https://github.com/daiyanHasin/Object-Detection-From-Satellite-Images", "caseStudy": "" },
+      "visual": { "type": "lattice", "accent": "sky", "seed": 61 },
+      "featured": false
+    },
+    {
+      "id": "renewable-energy-weather",
+      "title": "Renewable energy and weather",
+      "category": "Time-series modelling",
+      "year": "2024",
+      "summary": "How weather shapes renewable energy output, modelled with LSTM and HMM.",
+      "description": "Predicting hourly energy generation from temperature, humidity, wind, precipitation and solar irradiance, and uncovering hidden weather regimes.",
+      "results": "The LSTM reached R² 0.87 with an MAE of 170.2; the HMM also reached R² 0.87 and helped reveal latent weather states.",
+      "technologies": ["LSTM", "HMM", "TensorFlow", "hmmlearn", "Python"],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/daiyanHasin/Regression-Analysis-on-Dataset-Renewable-Energy-and-Weather-Conditions",
+        "caseStudy": ""
+      },
+      "visual": { "type": "strata", "accent": "teal", "seed": 67 },
+      "featured": false
+    },
+    {
+      "id": "bengali-sentiment",
+      "title": "Bengali sentiment analysis",
+      "category": "Natural language processing",
+      "year": "2024",
+      "summary": "Deep learning for sentiment in a low-resource language.",
+      "description": "Classifying Bengali comments by sentiment and comparing CNN, RNN and LSTM models with a logistic regression baseline, using TF-IDF and bag-of-words features.",
+      "results": "Logistic regression came out ahead (41.7% accuracy); the deep models underperformed with the data available.",
+      "limitations": "Limited labelled data and unstable training held the neural models back. Better data and model design are the next step.",
+      "technologies": ["CNN", "LSTM", "TensorFlow", "scikit-learn", "bnlp"],
+      "links": { "live": "", "repository": "https://github.com/daiyanHasin/Sentiment-Analysis-on-Bengali-Text", "caseStudy": "" },
+      "visual": { "type": "drift", "accent": "rose", "seed": 71 },
+      "featured": false
+    },
+    {
+      "id": "cnn-image-classification",
+      "title": "Image classification with CNN",
+      "category": "Deep learning",
+      "year": "2023",
+      "summary": "A convolutional network for classifying images from datasets like MNIST.",
+      "description": "Built and trained a CNN in TensorFlow and Keras for image classification.",
+      "technologies": ["Python", "TensorFlow", "Keras"],
       "links": { "live": "", "repository": "", "caseStudy": "" },
-      "visual": { "type": "strata", "accent": "verdigris", "seed": 41 },
+      "visual": { "type": "lattice", "accent": "violet", "seed": 79 },
+      "featured": false
+    },
+    {
+      "id": "daliesque",
+      "title": "Daliesque",
+      "category": "Desktop application",
+      "year": "2023",
+      "summary": "An art gallery management system.",
+      "description": "A desktop app for managing artists, artworks, customers and gallery sales, with full CRUD operations on a MySQL database and optimised queries.",
+      "technologies": ["Java", "Swing", "MySQL", "JDBC"],
+      "links": { "live": "", "repository": "https://github.com/daiyanHasin/Daliesque", "caseStudy": "" },
+      "visual": { "type": "frames", "accent": "rose", "seed": 83 },
+      "featured": false
+    },
+    {
+      "id": "betachat",
+      "title": "BetaChat",
+      "category": "Desktop application",
+      "year": "2022",
+      "summary": "A real-time group chat application.",
+      "description": "A multi-user chat room with a server-client architecture over Java sockets, user authentication and a Swing interface.",
+      "technologies": ["Java", "Sockets", "Swing"],
+      "links": { "live": "", "repository": "https://github.com/daiyanHasin/BetaChat", "caseStudy": "" },
+      "visual": { "type": "concentric", "accent": "coral", "seed": 89 },
       "featured": false
     }
   ],
-  "contact": {
-    "email": "hello@example.com",
-    "socials": [
-      { "label": "GitHub", "url": "https://github.com/your-handle" },
-      { "label": "LinkedIn", "url": "" },
-      { "label": "Read.cv", "url": "" }
+  "research": [
+    {
+      "id": "cloud-removal",
+      "title": "Adaptive Diffusion-Based Cloud Removal in Satellite Imagery",
+      "type": "Conference paper",
+      "venue": "28th International Conference on Computer and Information Technology (ICCIT)",
+      "publisher": "IEEE",
+      "date": "December 19–21, 2025",
+      "status": "Published",
+      "doi": "10.1109/ICCIT68739.2025.11491804",
+      "url": "",
+      "authors": [],
+      "objective": "Remove clouds from satellite imagery with diffusion-based deep learning models, reconstructing what lies underneath.",
+      "contributions": [
+        "Developed a cloud-removal pipeline using Stable Diffusion inpainting.",
+        "Preprocessed satellite images with cloud masking and normalisation.",
+        "Evaluated reconstructions with pixel-wise loss against ground-truth images."
+      ],
+      "technologies": ["Stable Diffusion", "Inpainting", "PyTorch", "Remote sensing"],
+      "accent": "sky"
+    },
+    {
+      "id": "evidence-aware-fraud",
+      "title": "Evidence-Aware Financial Fraud Detection: Delayed Labels, Entity History, and Model Choice",
+      "type": "Journal article",
+      "venue": "The Journal of Finance and Data Science",
+      "publisher": "",
+      "date": "",
+      "status": "",
+      "doi": "",
+      "url": "",
+      "authors": [],
+      "objective": "Study how delayed fraud labels, the history of each entity, and the choice of model shape what a fraud detector can honestly claim.",
+      "contributions": [],
+      "technologies": ["Fraud detection", "Tabular machine learning", "Graph learning"],
+      "accent": "coral"
+    }
+  ],
+  "about": {
+    "intro": "I studied Computer Science and Engineering at Ahsanullah University of Science and Technology and am now reading for an M.Sc. in Management of Technology at BUET. My research is in computer vision and machine learning; my engineering is in automation and tools.",
+    "experience": [
+      {
+        "role": "Automation Engineer Intern",
+        "org": "TechHub, Save the Children",
+        "period": "Jun 2026 – present",
+        "location": "",
+        "points": [
+          "Develop and support automation solutions that reduce manual processes.",
+          "Build and run automated web and mobile tests with Playwright and Appium.",
+          "Help implement, test and maintain automated workflows and system integrations.",
+          "Work with teams to analyse requirements and improve operational processes."
+        ]
+      },
+      {
+        "role": "Cybersecurity Intern",
+        "org": "Right Time Ltd.",
+        "period": "Aug 2021 – Jun 2023",
+        "location": "",
+        "points": [
+          "Identified and mitigated cybersecurity threats.",
+          "Assisted with security audits and network security protocols.",
+          "Worked with the IT team to protect sensitive information."
+        ]
+      }
     ],
-    "closingStatement": "There is always another way to see."
+    "education": [
+      {
+        "degree": "M.Sc. in Management of Technology",
+        "school": "Bangladesh University of Engineering and Technology (BUET), IAT",
+        "period": "2026 – present",
+        "detail": ""
+      },
+      {
+        "degree": "B.Sc. in Computer Science and Engineering",
+        "school": "Ahsanullah University of Science and Technology",
+        "period": "2021 – 2025",
+        "detail": "CGPA 3.64 / 4.00"
+      },
+      {
+        "degree": "Higher Secondary Certificate",
+        "school": "Engineering University School and College",
+        "period": "2020",
+        "detail": "GPA 5.00 / 5.00"
+      }
+    ],
+    "skills": [
+      { "group": "Programming", "items": ["Python", "C", "C++", "C#", "Java", "Rust", "TypeScript"] },
+      { "group": "Machine learning", "items": ["Deep learning", "Computer vision", "PyTorch", "TensorFlow", "PySpark"] },
+      { "group": "Automation", "items": ["Playwright", "Appium", "Maestro", "Reqnroll"] },
+      { "group": "Web", "items": ["HTML", "CSS", "PHP", "Next.js"] },
+      { "group": "Databases", "items": ["MySQL", "MSSQL", "Supabase"] },
+      { "group": "Tools", "items": ["Git and GitHub", "Canva", "PowerPoint"] }
+    ],
+    "courses": [
+      { "title": "Neural Networks and Deep Learning", "provider": "Andrew Ng, Coursera" },
+      { "title": "UI/UX Design: Wireframe, Mockup and Design in Figma", "provider": "freeCodeCamp" },
+      { "title": "Introduction to Machine Learning", "provider": "Kaggle" },
+      { "title": "Git and GitHub for Beginners", "provider": "freeCodeCamp" }
+    ],
+    "leadership": [
+      {
+        "role": "Vice President",
+        "org": "AUST CSE Society",
+        "period": "Dec 2024 – May 2025",
+        "location": "",
+        "points": [
+          "Organised and led technical, academic and cultural events for computer science students.",
+          "Worked with faculty and industry professionals to host workshops and seminars.",
+          "Managed a team of executives to run events and initiatives that raised student engagement."
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "email": "daiyanhasin07@gmail.com",
+    "phone": "+880 1533 376565",
+    "socials": [
+      { "label": "GitHub", "url": "https://github.com/daiyanHasin" },
+      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/HasinDaiyan" }
+    ],
+    "closingStatement": "There is always further to reach."
   },
   "labels": {
     "skipIntro": "Skip intro",
     "soundOn": "Sound on",
     "soundOff": "Sound off",
     "close": "Close",
-    "nextProject": "Next study",
-    "previousProject": "Previous study",
-    "beginAgain": "Begin again",
+    "nextProject": "Next project",
+    "previousProject": "Previous project",
+    "beginAgain": "Back to the start",
     "orderReadout": "Order",
     "pointerHint": "Move to look",
     "touchHint": "Touch to look",
-    "keyboardHint": "Arrow keys or 1 to 4 change scenes",
-    "studyPrefix": "Cat.",
+    "keyboardHint": "Arrow keys or 1 to 5 change scenes",
+    "studyPrefix": "No.",
     "figurePrefix": "Fig.",
-    "methods": "Methods",
+    "methods": "Built with",
     "copyEmail": "Copy address",
     "copied": "Copied",
-    "emptyWork": "No studies yet. Add one to the projects list in portfolio.json.",
-    "interestGroups": { "research": "Questions under study", "creative": "Things being made" },
+    "emptyWork": "No projects yet. Add one to the projects list in portfolio.json.",
+    "emptyResearch": "No research yet. Add a paper to the research list in portfolio.json.",
+    "resume": "Résumé",
+    "seeWork": "See the projects",
+    "readPaper": "Read the paper",
+    "doi": "DOI",
+    "objective": "Objective",
+    "contributions": "What I did",
+    "authors": "Authors",
     "links": { "live": "Live version", "repository": "Repository", "caseStudy": "Case study" },
     "sections": {
-      "problem": "The question",
+      "problem": "The problem",
       "idea": "The idea",
       "approach": "Approach",
       "details": "Details",
-      "results": "What happened",
-      "limitations": "Where it falls short"
+      "results": "Results",
+      "limitations": "Limitations"
+    },
+    "about": {
+      "experience": "Experience",
+      "education": "Education",
+      "skills": "Skills",
+      "courses": "Courses",
+      "leadership": "Leadership"
     }
   }
 }

@@ -4,9 +4,11 @@ import {
   PROJECT_SECTION_KEYS,
   PROJECT_VISUAL_TYPES,
   SCENE_IDS,
+  type About,
   type AccentName,
-  type Interest,
   type NavItem,
+  type Paper,
+  type Role,
   type Portfolio,
   type Project,
   type ProjectSectionKey,
@@ -113,10 +115,75 @@ function parseProject(p: Unknown, i: number): Project {
     },
     visual: {
       type: oneOf<ProjectVisualType>(visualRaw.type, PROJECT_VISUAL_TYPES, "drift", `${path}.visual.type`),
-      accent: oneOf<AccentName>(visualRaw.accent, ACCENT_NAMES, "copper", `${path}.visual.accent`),
+      accent: oneOf<AccentName>(visualRaw.accent, ACCENT_NAMES, "coral", `${path}.visual.accent`),
       seed: typeof seedRaw === "number" && Number.isFinite(seedRaw) ? seedRaw : (i + 1) * 17,
     },
     featured: p.featured !== false,
+  };
+}
+
+/** Site-relative files in public/ (e.g. "/resume.pdf") are allowed too. */
+function localPath(v: unknown): string {
+  if (typeof v !== "string") return "";
+  const s = v.trim();
+  return /^\/[\w\-./]+$/.test(s) && !s.includes("..") ? s : "";
+}
+
+function parsePaper(p: Unknown, i: number): Paper {
+  const path = `research[${i}]`;
+  const title = str(p, "title", `Untitled paper ${i + 1}`, path);
+  const doi = str(p, "doi", "", path).replace(/^https?:\/\/(dx\.)?doi\.org\//i, "");
+  return {
+    id: str(p, "id", "", path) || slug(title) || `paper-${i + 1}`,
+    title,
+    type: str(p, "type", "", path),
+    venue: str(p, "venue", "", path),
+    publisher: str(p, "publisher", "", path),
+    date: str(p, "date", "", path),
+    status: str(p, "status", "", path),
+    doi,
+    url: safeUrl(p.url) || (doi ? `https://doi.org/${doi}` : ""),
+    authors: strList(p.authors, `${path}.authors`),
+    objective: str(p, "objective", "", path),
+    contributions: strList(p.contributions, `${path}.contributions`),
+    technologies: strList(p.technologies, `${path}.technologies`),
+    accent: oneOf<AccentName>(p.accent, ACCENT_NAMES, ACCENT_NAMES[i % ACCENT_NAMES.length], `${path}.accent`),
+  };
+}
+
+function parseRole(o: Unknown, path: string): Role {
+  return {
+    role: str(o, "role", "", path),
+    org: str(o, "org", "", path),
+    period: str(o, "period", "", path),
+    location: str(o, "location", "", path),
+    points: strList(o.points, `${path}.points`),
+  };
+}
+
+function parseAbout(a: Unknown): About {
+  return {
+    intro: str(a, "intro", "", "about"),
+    experience: objList(a.experience, "about.experience")
+      .map((o, i) => parseRole(o, `about.experience[${i}]`))
+      .filter((r) => r.role || r.org),
+    education: objList(a.education, "about.education")
+      .map((o, i) => ({
+        degree: str(o, "degree", "", `about.education[${i}]`),
+        school: str(o, "school", "", `about.education[${i}]`),
+        period: str(o, "period", "", `about.education[${i}]`),
+        detail: str(o, "detail", "", `about.education[${i}]`),
+      }))
+      .filter((e) => e.degree || e.school),
+    skills: objList(a.skills, "about.skills")
+      .map((o, i) => ({ group: str(o, "group", "", `about.skills[${i}]`), items: strList(o.items, `about.skills[${i}].items`) }))
+      .filter((g) => g.items.length),
+    courses: objList(a.courses, "about.courses")
+      .map((o, i) => ({ title: str(o, "title", "", `about.courses[${i}]`), provider: str(o, "provider", "", `about.courses[${i}]`) }))
+      .filter((c) => c.title),
+    leadership: objList(a.leadership, "about.leadership")
+      .map((o, i) => parseRole(o, `about.leadership[${i}]`))
+      .filter((r) => r.role || r.org),
   };
 }
 
@@ -129,12 +196,13 @@ function parse(input: unknown): Portfolio {
   const labelsRaw = isObj(r.labels) ? r.labels : {};
   const linkLabels = isObj(labelsRaw.links) ? labelsRaw.links : {};
   const sectionLabels = isObj(labelsRaw.sections) ? labelsRaw.sections : {};
-  const groupLabels = isObj(labelsRaw.interestGroups) ? labelsRaw.interestGroups : {};
+  const aboutLabels = isObj(labelsRaw.about) ? labelsRaw.about : {};
 
   const defaultNav: NavItem[] = [
     { id: "home", label: "Index", target: "home" },
     { id: "work", label: "Selected work", target: "work" },
-    { id: "thinking", label: "Fragments", target: "thinking" },
+    { id: "research", label: "Research", target: "research" },
+    { id: "about", label: "About", target: "about" },
     { id: "contact", label: "Contact", target: "contact" },
   ];
   let navigation = objList(r.navigation, "navigation").map((n, i) => ({
@@ -162,16 +230,6 @@ function parse(input: unknown): Portfolio {
     }),
   ) as Record<SceneId, SceneCopy>;
 
-  const interests: Interest[] = uniqueIds(
-    objList(r.interests, "interests").map((it, i) => ({
-      id: str(it, "id", "", `interests[${i}]`) || slug(str(it, "title")),
-      group: oneOf<"research" | "creative">(it.group, ["research", "creative"], "research", `interests[${i}].group`),
-      title: str(it, "title", "", `interests[${i}]`),
-      description: str(it, "description", "", `interests[${i}]`),
-    })),
-    "interests",
-  ).filter((it) => it.title);
-
   const headline = strList(id.headline, "identity.headline");
 
   const label = objList(id.label, "identity.label")
@@ -195,15 +253,17 @@ function parse(input: unknown): Portfolio {
       positioning: str(id, "positioning"),
       status: str(id, "status"),
       location: str(id, "location"),
+      resumeUrl: safeUrl(id.resumeUrl) || localPath(id.resumeUrl),
       label,
     },
     navigation,
     scenes,
-    interests,
-    statements: strList(r.statements, "statements"),
     projects,
+    research: uniqueIds(objList(r.research, "research").map(parsePaper), "research"),
+    about: parseAbout(isObj(r.about) ? r.about : {}),
     contact: {
       email: str(contactRaw, "email").replace(/^mailto:/i, ""),
+      phone: str(contactRaw, "phone"),
       socials: objList(contactRaw.socials, "contact.socials")
         .map((s) => ({ label: str(s, "label"), url: safeUrl(s.url) }))
         .filter((s) => s.label && s.url),
@@ -227,9 +287,20 @@ function parse(input: unknown): Portfolio {
       copyEmail: str(labelsRaw, "copyEmail", "Copy address"),
       copied: str(labelsRaw, "copied", "Copied"),
       emptyWork: str(labelsRaw, "emptyWork", "No projects yet."),
-      interestGroups: {
-        research: str(groupLabels, "research", "Research"),
-        creative: str(groupLabels, "creative", "Creative"),
+      emptyResearch: str(labelsRaw, "emptyResearch", "No research yet."),
+      resume: str(labelsRaw, "resume", "Résumé"),
+      seeWork: str(labelsRaw, "seeWork", "See the work"),
+      readPaper: str(labelsRaw, "readPaper", "Read the paper"),
+      doi: str(labelsRaw, "doi", "DOI"),
+      objective: str(labelsRaw, "objective", "Objective"),
+      contributions: str(labelsRaw, "contributions", "What I did"),
+      authors: str(labelsRaw, "authors", "Authors"),
+      about: {
+        experience: str(aboutLabels, "experience", "Experience"),
+        education: str(aboutLabels, "education", "Education"),
+        skills: str(aboutLabels, "skills", "Skills"),
+        courses: str(aboutLabels, "courses", "Courses"),
+        leadership: str(aboutLabels, "leadership", "Leadership"),
       },
       links: {
         live: str(linkLabels, "live", "Live version"),

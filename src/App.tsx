@@ -17,22 +17,33 @@ import { Slate } from "./components/Slate";
 import { ProjectView } from "./components/ProjectView";
 import { Entrance } from "./scenes/Entrance";
 import { Work } from "./scenes/Work";
-import { Fragments } from "./scenes/Fragments";
+import { Research } from "./scenes/Research";
+import { About } from "./scenes/About";
+import { Sky } from "./components/Sky";
 import { Contact } from "./scenes/Contact";
 import { sound } from "./lib/sound";
 
 /** Intro stages: 0 empty frame, 1 marks, 2 field, 3 type, 4 details, 5 interactive. */
 const DONE = 5;
-const SEEN_KEY = "unfinished-study:seen";
+const SEEN_KEY = "portfolio:intro-seen";
 
 const sceneFromHash = (): SceneId => {
-  const h = window.location.hash.slice(1);
+  const raw = window.location.hash.slice(1);
+  // Older links pointed at #thinking; that content now lives under About.
+  const h = raw === "thinking" ? "about" : raw;
   return (SCENE_IDS as readonly string[]).includes(h) ? (h as SceneId) : "home";
 };
 
 const gradeVars = (s: SceneId): CSSProperties => {
   const g = grades[s];
-  return { ["--fg" as string]: g.fg, ["--dim" as string]: g.dim, ["--rule" as string]: g.rule, color: g.fg };
+  return {
+    ["--fg" as string]: g.fg,
+    ["--dim" as string]: g.dim,
+    ["--rule" as string]: g.rule,
+    ["--accent" as string]: g.leader,
+    ["--panel" as string]: g.panel,
+    color: g.fg,
+  };
 };
 
 export default function App() {
@@ -174,7 +185,10 @@ export default function App() {
     root.setProperty("--fg", g.fg);
     root.setProperty("--dim", g.dim);
     root.setProperty("--rule", g.rule);
+    root.setProperty("--accent", g.leader);
+    root.setProperty("--panel", g.panel);
     root.setProperty("--bg", grades[base].bg);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", grades[base].bg);
   }, [chromeScene, base]);
 
   useEffect(() => {
@@ -216,7 +230,15 @@ export default function App() {
     switch (s) {
       case "home":
         return (
-          <Entrance key={retake} reduced={reduced} coarse={vp.coarse} small={vp.small} revealed={stage >= 3} detailsRevealed={stage >= 4} />
+          <Entrance
+            key={retake}
+            reduced={reduced}
+            coarse={vp.coarse}
+            small={vp.small}
+            revealed={stage >= 3}
+            detailsRevealed={stage >= 4}
+            onSeeWork={() => go("work")}
+          />
         );
       case "work":
         return (
@@ -229,8 +251,10 @@ export default function App() {
             onOpen={openProject}
           />
         );
-      case "thinking":
-        return <Fragments reduced={reduced} small={vp.small} />;
+      case "research":
+        return <Research reduced={reduced} small={vp.small} />;
+      case "about":
+        return <About reduced={reduced} small={vp.small} />;
       case "contact":
         return (
           <Contact
@@ -252,7 +276,7 @@ export default function App() {
 
   return (
     <>
-      <div aria-hidden="true" className="fixed inset-0 z-0" style={{ background: grades[base].bg }} />
+      <Sky scene={base} />
       <Shutter from={base} to={scene} direction={direction} reduced={reduced} label={sceneLabel(scene)} onDone={() => setBase(scene)} />
       <Field reduced={reduced} />
 

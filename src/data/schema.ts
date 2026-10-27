@@ -4,11 +4,20 @@
  * so components can rely on these types without defensive checks.
  */
 
-export type SceneId = "home" | "work" | "thinking" | "contact";
-export const SCENE_IDS: readonly SceneId[] = ["home", "work", "thinking", "contact"];
+export type SceneId = "home" | "work" | "research" | "about" | "contact";
+export const SCENE_IDS: readonly SceneId[] = ["home", "work", "research", "about", "contact"];
 
 /** Field forms a project may request. Mapped to generators in field/forms.ts. */
-export type ProjectVisualType = "drift" | "concentric" | "monolith" | "strata" | "lattice" | "frames";
+export type ProjectVisualType =
+  | "drift"
+  | "concentric"
+  | "monolith"
+  | "strata"
+  | "lattice"
+  | "frames"
+  | "spiral"
+  | "stairs"
+  | "ascent";
 export const PROJECT_VISUAL_TYPES: readonly ProjectVisualType[] = [
   "drift",
   "concentric",
@@ -16,18 +25,14 @@ export const PROJECT_VISUAL_TYPES: readonly ProjectVisualType[] = [
   "strata",
   "lattice",
   "frames",
+  "spiral",
+  "stairs",
+  "ascent",
 ];
 
 /** Accent names resolve to palette tokens in config/palette.ts. */
-export type AccentName = "copper" | "verdigris" | "chartreuse" | "mineral" | "lavender" | "vermilion";
-export const ACCENT_NAMES: readonly AccentName[] = [
-  "copper",
-  "verdigris",
-  "chartreuse",
-  "mineral",
-  "lavender",
-  "vermilion",
-];
+export type AccentName = "coral" | "gold" | "sky" | "violet" | "teal" | "rose";
+export const ACCENT_NAMES: readonly AccentName[] = ["coral", "gold", "sky", "violet", "teal", "rose"];
 
 export interface LabelEntry {
   key: string;
@@ -42,6 +47,7 @@ export interface Identity {
   positioning: string;
   status: string;
   location: string;
+  resumeUrl: string;
   label: LabelEntry[];
 }
 
@@ -52,13 +58,6 @@ export interface NavItem {
 }
 
 export interface SceneCopy {
-  title: string;
-  description: string;
-}
-
-export interface Interest {
-  id: string;
-  group: "research" | "creative";
   title: string;
   description: string;
 }
@@ -100,6 +99,57 @@ export interface Project {
   featured: boolean;
 }
 
+export interface Paper {
+  id: string;
+  title: string;
+  type: string;
+  venue: string;
+  publisher: string;
+  date: string;
+  status: string;
+  doi: string;
+  url: string;
+  authors: string[];
+  objective: string;
+  contributions: string[];
+  technologies: string[];
+  accent: AccentName;
+}
+
+export interface Role {
+  role: string;
+  org: string;
+  period: string;
+  location: string;
+  points: string[];
+}
+
+export interface Education {
+  degree: string;
+  school: string;
+  period: string;
+  detail: string;
+}
+
+export interface SkillGroup {
+  group: string;
+  items: string[];
+}
+
+export interface Course {
+  title: string;
+  provider: string;
+}
+
+export interface About {
+  intro: string;
+  experience: Role[];
+  education: Education[];
+  skills: SkillGroup[];
+  courses: Course[];
+  leadership: Role[];
+}
+
 export interface Social {
   label: string;
   url: string;
@@ -107,6 +157,7 @@ export interface Social {
 
 export interface Contact {
   email: string;
+  phone: string;
   socials: Social[];
   closingStatement: string;
 }
@@ -129,9 +180,17 @@ export interface Labels {
   copyEmail: string;
   copied: string;
   emptyWork: string;
-  interestGroups: Record<Interest["group"], string>;
+  emptyResearch: string;
+  resume: string;
+  seeWork: string;
+  readPaper: string;
+  doi: string;
+  objective: string;
+  contributions: string;
+  authors: string;
   links: Record<keyof ProjectLinks, string>;
   sections: Record<ProjectSectionKey, string>;
+  about: { experience: string; education: string; skills: string; courses: string; leadership: string };
 }
 
 export interface Portfolio {
@@ -139,9 +198,9 @@ export interface Portfolio {
   identity: Identity;
   navigation: NavItem[];
   scenes: Record<SceneId, SceneCopy>;
-  interests: Interest[];
-  statements: string[];
   projects: Project[];
+  research: Paper[];
+  about: About;
   contact: Contact;
   labels: Labels;
 }

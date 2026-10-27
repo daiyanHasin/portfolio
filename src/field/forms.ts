@@ -21,6 +21,8 @@ export interface FormResult {
   x: Float32Array;
   y: Float32Array;
   spacing: number;
+  /** Optional source of light inside the form (a sun, a halo); the field glows there. */
+  focus?: { x: number; y: number; r: number };
 }
 
 type Rng = () => number;
@@ -245,12 +247,24 @@ const strata: Gen = (n, r, rng) => {
   return finalize(xs, ys, n, rng, (r.w * 0.92) / per);
 };
 
-/** Everything collapses to one horizon, and a single vertical stroke stands on it. */
+/** Everything collapses to one horizon with a sun half-risen on it, and a single figure standing by. */
 const horizon: Gen = (n, r, rng) => {
   const xs: number[] = [];
   const ys: number[] = [];
   const hy = r.y + r.h * 0.7;
-  const line = Math.floor(n * 0.93);
+  const sunN = Math.floor(n * 0.24);
+  const sr = Math.min(r.w, r.h) * 0.16;
+  const scx = r.x + r.w * 0.3;
+  for (let ring = 0; ring < 4; ring++) {
+    const rr = sr * (1 - ring * 0.2);
+    const count = Math.floor(sunN / 4);
+    for (let k = 0; k < count; k++) {
+      const a = Math.PI + (k / Math.max(count - 1, 1)) * Math.PI;
+      xs.push(scx + Math.cos(a) * rr);
+      ys.push(hy + Math.sin(a) * rr);
+    }
+  }
+  const line = Math.floor((n - sunN) * 0.92);
   samplePolyline(
     [
       [r.x - r.w * 0.02, hy],
@@ -267,12 +281,209 @@ const horizon: Gen = (n, r, rng) => {
       [fx, hy],
       [fx, hy - r.h * 0.13],
     ],
-    n - line,
+    n - sunN - line,
     false,
     xs,
     ys,
   );
-  return finalize(xs, ys, n, rng, (r.w * 1.04) / line);
+  return { ...finalize(xs, ys, n, rng, (r.w * 1.04) / line), focus: { x: scx, y: hy, r: sr } };
+};
+
+/* ---------- the ascent: a hand reaching up toward a light ---------- */
+
+/** Tapered capsule in hand space: [ax, ay, bx, by, radiusA, radiusB]. */
+type Capsule = [number, number, number, number, number, number];
+
+/** An open right hand, fingers spread and reaching up. Hand space: palm near the origin, y grows downward. */
+const HAND: Capsule[] = [
+  [0.06, 0.5, 0.14, 2.9, 0.33, 0.42], // forearm, widening toward the elbow
+  [-0.33, -0.42, -0.52, -1.55, 0.16, 0.125], // index
+  [-0.07, -0.48, -0.12, -1.76, 0.165, 0.13], // middle
+  [0.18, -0.46, 0.28, -1.6, 0.155, 0.122], // ring
+  [0.39, -0.36, 0.62, -1.2, 0.135, 0.105], // little
+  [-0.36, 0.22, -0.92, -0.42, 0.19, 0.135], // thumb
+  [-0.18, 0.36, -0.4, 0.02, 0.26, 0.24], // base of the thumb
+  [-0.36, -0.4, 0.42, -0.36, 0.13, 0.13], // knuckles
+  [0.42, -0.36, 0.36, 0.42, 0.13, 0.15], // outer edge of the palm
+  [0.36, 0.42, -0.2, 0.5, 0.15, 0.2], // heel of the palm
+];
+
+/** The palm itself, as a polygon the capsules round off. */
+const PALM: [number, number][] = [
+  [-0.42, -0.42],
+  [0.45, -0.38],
+  [0.38, 0.45],
+  [-0.25, 0.55],
+  [-0.4, 0.1],
+];
+
+function inPolygon(x: number, y: number, poly: [number, number][]) {
+  let inside = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i];
+    const [xj, yj] = poly[j];
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+function capsuleDistance(px: number, py: number, c: Capsule) {
+  const [ax, ay, bx, by, ra, rb] = c;
+  const dx = bx - ax;
+  const dy = by - ay;
+  const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)));
+  const qx = ax + dx * t - px;
+  const qy = ay + dy * t - py;
+  return Math.hypot(qx, qy) - (ra + (rb - ra) * t);
+}
+
+const inHand = (x: number, y: number) => {
+  if (inPolygon(x, y, PALM)) return true;
+  for (const c of HAND) if (capsuleDistance(x, y, c) < 0) return true;
+  return false;
+};
+
+/** Picks `count` items spread evenly through a list. */
+function spread<T>(list: T[], count: number): T[] {
+  if (count >= list.length) return list;
+  const out: T[] = [];
+  const step = list.length / count;
+  for (let i = 0; i < count; i++) out.push(list[Math.floor(i * step)]);
+  return out;
+}
+
+/**
+ * The front page: a hand rises from the bottom of the frame, fingers open,
+ * reaching for a light above it. Rays fall from the light toward the fingertips.
+ */
+const ascent: Gen = (n, r, rng) => {
+  const xs: number[] = [];
+  const ys: number[] = [];
+  const s = Math.min(r.h * 0.2, r.w * 0.3);
+  const tilt = (-14 * Math.PI) / 180;
+  const cos = Math.cos(tilt);
+  const sin = Math.sin(tilt);
+  // Keep the light (up and to the left of the fingers) inside the frame on narrow screens.
+  const ox = Math.max(r.x + r.w * 0.56, r.x + s * 2.56);
+  const oy = r.y + r.h * 0.33 + 1.74 * s;
+  const place = (hx: number, hy: number): [number, number] => [ox + (hx * cos - hy * sin) * s, oy + (hx * sin + hy * cos) * s];
+
+  // Rasterise the hand: edges carry the silhouette, a sparser fill gives it body.
+  const g = 0.035;
+  const edge: [number, number][] = [];
+  const fill: [number, number][] = [];
+  for (let hy = -1.95; hy <= 3.4; hy += g) {
+    for (let hx = -1.2; hx <= 0.9; hx += g) {
+      if (!inHand(hx, hy)) continue;
+      const border = !inHand(hx + g, hy) || !inHand(hx - g, hy) || !inHand(hx, hy + g) || !inHand(hx, hy - g);
+      (border ? edge : fill).push([hx, hy]);
+    }
+  }
+  const nEdge = Math.floor(n * 0.58);
+  const nFill = Math.floor(n * 0.24);
+  for (const [hx, hy] of spread(edge, nEdge)) {
+    const [x, y] = place(hx, hy);
+    xs.push(x);
+    ys.push(y);
+  }
+  for (let i = 0; i < nFill && fill.length; i++) {
+    const [hx, hy] = fill[Math.floor(rng() * fill.length)];
+    const [x, y] = place(hx + (rng() - 0.5) * g, hy + (rng() - 0.5) * g);
+    xs.push(x);
+    ys.push(y);
+  }
+
+  // The light: rings above and ahead of the index finger.
+  const [lx, ly] = place(-0.95, -3.05);
+  const nLight = Math.floor(n * 0.13);
+  const rings = 5;
+  for (let k = 0; k < rings; k++) {
+    const rr = s * (0.16 + k * 0.17);
+    const count = Math.floor((nLight * (k + 1)) / ((rings * (rings + 1)) / 2));
+    for (let j = 0; j < count; j++) {
+      const a = (j / count) * Math.PI * 2 + k * 0.4;
+      xs.push(lx + Math.cos(a) * rr);
+      ys.push(ly + Math.sin(a) * rr);
+    }
+  }
+
+  // Whatever is left drifts as loose sparks between the fingers and the light.
+  const [tx, ty] = place(-0.3, -1.9);
+  while (xs.length < n) {
+    const t = rng();
+    xs.push(tx + (lx - tx) * t + gauss(rng) * s * 0.25);
+    ys.push(ty + (ly - ty) * t + gauss(rng) * s * 0.25);
+  }
+  // Neighbouring outline points are about this far apart; the field wires them together.
+  const edgeSpacing = (g * s * edge.length) / Math.max(nEdge, 1);
+  return { ...finalize(xs, ys, n, rng, edgeSpacing * 1.15), focus: { x: lx, y: ly, r: s * 0.8 } };
+};
+
+/** A golden spiral unwinding upward: a question widening as it is followed. */
+const spiral: Gen = (n, r, rng) => {
+  const xs: number[] = [];
+  const ys: number[] = [];
+  const cx = r.x + r.w * 0.5;
+  const cy = r.y + r.h * 0.55;
+  const R = Math.min(r.w, r.h) * 0.46;
+  const b = Math.log(1.618) / (Math.PI / 2);
+  const turns = 3.4;
+  const tMax = turns * Math.PI * 2;
+  const a = R / Math.exp(b * tMax);
+  const main = Math.floor(n * 0.78);
+  for (let i = 0; i < main; i++) {
+    const t = (i / main) * tMax;
+    const rr = a * Math.exp(b * t);
+    const th = -t - Math.PI / 2;
+    const jitter = (rng() - 0.5) * rr * 0.04;
+    xs.push(cx + Math.cos(th) * (rr + jitter));
+    ys.push(cy + Math.sin(th) * (rr + jitter));
+  }
+  const ring = n - main;
+  for (let i = 0; i < ring; i++) {
+    const th = (i / ring) * Math.PI * 2;
+    xs.push(cx + Math.cos(th) * R * 1.04);
+    ys.push(cy + Math.sin(th) * R * 1.04);
+  }
+  return { ...finalize(xs, ys, n, rng, (R * 2 * Math.PI * turns) / main), focus: { x: cx, y: cy, r: R * 0.35 } };
+};
+
+/** A staircase climbing from the lower left to a light at the top. */
+const stairs: Gen = (n, r, rng) => {
+  const xs: number[] = [];
+  const ys: number[] = [];
+  const steps = 8;
+  const sw = (r.w * 0.82) / steps;
+  const sh = (r.h * 0.62) / steps;
+  const x0 = r.x + r.w * 0.06;
+  const y0 = r.y + r.h * 0.92;
+  const pts: [number, number][] = [[x0, y0]];
+  for (let k = 0; k < steps; k++) {
+    const x = x0 + k * sw;
+    const y = y0 - (k + 1) * sh;
+    pts.push([x, y], [x + sw, y]);
+  }
+  const outline = Math.floor(n * 0.62);
+  samplePolyline(pts, outline, false, xs, ys);
+  // Each step casts a faint shadow line beneath it.
+  const shade = Math.floor(n * 0.18);
+  for (let i = 0; i < shade; i++) {
+    const k = Math.floor(rng() * steps);
+    const x = x0 + k * sw + rng() * sw;
+    const top = y0 - (k + 1) * sh;
+    xs.push(x);
+    ys.push(top + sh * 0.35 + rng() * (y0 - top - sh * 0.35));
+  }
+  const glowN = n - outline - shade;
+  const gx = x0 + steps * sw;
+  const gy = y0 - steps * sh - sh * 1.4;
+  for (let i = 0; i < glowN; i++) {
+    const th = (i / glowN) * Math.PI * 2 * 3;
+    const rr = sh * (0.4 + (i / glowN) * 0.9);
+    xs.push(gx + Math.cos(th) * rr);
+    ys.push(gy + Math.sin(th) * rr);
+  }
+  return { ...finalize(xs, ys, n, rng, (r.w * 0.82 + r.h * 0.62) / outline), focus: { x: gx, y: gy, r: sh * 1.4 } };
 };
 
 export const forms: Record<FormName, Gen> = {
@@ -283,4 +494,7 @@ export const forms: Record<FormName, Gen> = {
   monolith,
   strata,
   horizon,
+  ascent,
+  spiral,
+  stairs,
 };

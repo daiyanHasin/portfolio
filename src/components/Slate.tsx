@@ -9,8 +9,8 @@ interface Props {
 }
 
 /**
- * Scene navigation, laid out like an edit timeline. The vermilion playhead is
- * the only fixed use of that colour in the interface.
+ * Scene navigation, laid out like an edit timeline. The playhead takes the
+ * colour of the scene's light.
  */
 export function Slate({ current, visible, onGo }: Props) {
   const nav = content.navigation;
@@ -37,7 +37,7 @@ export function Slate({ current, visible, onGo }: Props) {
                 <motion.span
                   layoutId="playhead"
                   aria-hidden="true"
-                  className="absolute -top-[3px] left-0 h-[5px] w-7 bg-vermilion"
+                  className="absolute -top-[3px] left-0 h-[5px] w-7 rounded-full bg-accent"
                   transition={{ type: "spring", stiffness: 260, damping: 32 }}
                 />
               )}

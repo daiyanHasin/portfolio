@@ -1,8 +1,8 @@
-# An Unfinished Study
+# Hasin Md. Daiyan, portfolio
 
-A scene-based portfolio built around one rule: **order exists only where you look.**
-A field of points holds its form near the pointer and drifts apart elsewhere; the
-headline and project titles follow the same rule with a variable-width typeface.
+A scene-based portfolio. Each scene is an hour of the same sky, dawn to dusk. A field
+of points flows across every scene and gathers into a form: on the front page, a hand
+reaching up toward a light. Where you look, the form sharpens.
 
 ## Run it
 
@@ -21,45 +21,42 @@ changes only after you rebuild and redeploy.
 ## Editing content
 
 All editable copy lives in `src/data/portfolio.json`. No component needs to change.
+Edit it, commit, push: Vercel rebuilds and the site updates.
 
-**Add a project:** append an object to `projects`:
+**Add a project:** append an object to `projects` (optional sections appear only when filled in):
 
 ```json
 {
-  "id": "project-epsilon",
-  "title": "Project Epsilon",
-  "category": "Research",
+  "id": "my-project",
+  "title": "My project",
+  "category": "Computer vision",
   "year": "2026",
   "summary": "One sentence, shown as the figure caption.",
   "description": "Two or three sentences for the opened view.",
-  "problem": "Optional", "idea": "Optional", "approach": "Optional",
-  "details": "Optional", "results": "Optional", "limitations": "Optional",
-  "technologies": ["Python", "Graphs"],
-  "links": { "live": "", "repository": "https://github.com/you/repo", "caseStudy": "" },
-  "visual": { "type": "concentric", "accent": "mineral", "seed": 52 },
+  "problem": "", "idea": "", "approach": "", "details": "", "results": "", "limitations": "",
+  "technologies": ["Python", "PyTorch"],
+  "links": { "live": "", "repository": "https://github.com/daiyanHasin/repo", "caseStudy": "" },
+  "visual": { "type": "spiral", "accent": "sky", "seed": 52 },
   "featured": true
 }
 ```
 
-- `id` must be unique and stable; it identifies the project in interaction state.
-- Optional sections (`problem` … `limitations`) appear only when filled in.
-- Empty or non-http(s) links are hidden automatically.
-- `visual.type` picks the field's form: `drift`, `concentric`, `monolith`, `strata`, `lattice`, `frames`.
-- `visual.accent`: `copper`, `verdigris`, `chartreuse`, `mineral`, `lavender`, `vermilion`.
-- `visual.seed` changes the form's random details.
-- `featured: false` sets the title smaller in the index.
+- `visual.type`: `drift`, `concentric`, `monolith`, `strata`, `lattice`, `frames`, `spiral`, `stairs`, `ascent`.
+- `visual.accent`: `coral`, `gold`, `sky`, `violet`, `teal`, `rose`.
+- `featured: false` sets the title smaller. Empty links are hidden.
+
+**Add a paper:** append to `research`. `doi` builds the link automatically when `url` is empty;
+`status` (e.g. "Published", "Under review") shows as a coloured tag; empty fields are hidden.
+
+**About page:** `about.intro`, `experience`, `leadership` (role, org, period, points),
+`education` (degree, school, period, detail), `skills` (group, items), `courses` (title, provider).
+
+**Résumé button:** put the PDF in `public/` and set `identity.resumeUrl` to `"/resume.pdf"`.
+
+**Front page:** `identity.headline` holds the three headline lines; `identity.label` the small facts
+in the corner card. `contact` holds email, phone, social links and the closing line.
 
 Unknown values fall back to safe defaults with a warning in the dev console.
-
-**Edit a project:** change its fields. **Remove one:** delete its object.
-
-Other sections:
-
-- `identity` holds the name, headline lines, gallery label and short bio.
-- `statements` and `interests` (with `group`: `research` or `creative`) fill Fragments.
-- `contact` holds the email, social links and closing line.
-- `navigation` sets scene labels. All four scenes stay reachable even if one is omitted.
-- `labels` holds every small interface string.
 
 ## Structure
 
@@ -69,8 +66,8 @@ src/
   config/     palette.ts (colours, scene grades), motion.ts (easing, timing), variants.ts
   field/      engine.ts (simulation + canvas), forms.ts (shape generators),
               controller.ts (bridge), Field.tsx
-  scenes/     Entrance, Work, Fragments, Contact
-  components/ Shutter (scene cut), Slate (navigation), TopBar, FrameMarks,
+  scenes/     Entrance, Work, Research, About, Contact
+  components/ Sky (gradient + drifting clouds), Shutter (scene cut), Slate (navigation), TopBar, FrameMarks,
               ProjectView (dialog), GazeHeadline, Line (masked reveal)
   hooks/      useSceneNavigation, useFieldDirective, useViewport
   lib/        sound.ts
@@ -80,8 +77,8 @@ Design tokens live in `src/styles/index.css` (`@theme`) and mirror `config/palet
 
 ## Behaviour notes
 
-- **Navigation:** the slate at the bottom, arrow keys, Page Up/Down, keys 1 to 4, Home, mouse wheel and vertical swipe. Scroll areas keep their own scrolling until they reach an end.
-- **Deep links:** `#work`, `#thinking` and `#contact` open that scene and skip the intro.
+- **Navigation:** the slate at the bottom, arrow keys, Page Up/Down, keys 1 to 5, Home, mouse wheel and vertical swipe. Scroll areas keep their own scrolling until they reach an end.
+- **Deep links:** `#work`, `#research`, `#about` and `#contact` open that scene and skip the intro.
 - **Intro:** about 2.5 seconds, skipped by any input, and shortened for the rest of the session.
 - **Project view:** Escape closes it, arrow keys step between projects, and focus returns to the project you opened.
 - **Reduced motion:** wipes become crossfades, the headline holds a fixed composition, and the field stops redrawing once it settles.

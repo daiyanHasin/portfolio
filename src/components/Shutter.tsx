@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import type { SceneId } from "../data/schema";
-import { grades } from "../config/palette";
+import { grades, skyGradient } from "../config/palette";
 import { duration, easeCss } from "../config/motion";
 
 interface Props {
@@ -59,7 +59,7 @@ export function Shutter({ from, to, direction, reduced, label, onDone }: Props) 
   const g = grades[to];
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[1]">
-      <div ref={plate} className="absolute inset-0" style={{ background: g.bg, clipPath: reduced ? undefined : "inset(100% 0 0 0)", opacity: reduced ? 0 : 1 }} />
+      <div ref={plate} className="absolute inset-0" style={{ background: skyGradient(to), clipPath: reduced ? undefined : "inset(100% 0 0 0)", opacity: reduced ? 0 : 1 }} />
       {!reduced && (
         <div ref={edge} className="absolute inset-x-0 top-0" style={{ opacity: 0 }}>
           <div className="h-px w-full" style={{ background: g.leader }} />

@@ -5,23 +5,23 @@
  * Scene grades are applied at runtime as --bg / --fg / --dim / --rule.
  */
 @theme {
-  --color-silver: #bab5aa;
-  --color-ink: #1c1a17;
-  --color-charcoal: #2a2723;
-  --color-charcoal-raised: #322e29;
-  --color-bone: #e6e0d3;
-  --color-forest: #16261e;
-  --color-ivory: #dacdb3;
-  --color-vermilion: #c9452a;
-  --color-copper: #b36b43;
-  --color-verdigris: #6f9c8b;
-  --color-chartreuse: #c4cc3e;
-  --color-mineral: #6c8595;
-  --color-lavender: #a39cc0;
+  --color-indigo: #1e2a78;
+  --color-violet: #7a4fb5;
+  --color-coral: #ff7e67;
+  --color-gold: #ffc960;
+  --color-cream: #fff8ee;
+  --color-sky: #2f6bff;
+  --color-navy: #12224f;
+  --color-ember: #e8590c;
+  --color-teal: #0e9f8a;
+  --color-plum: #3a1c71;
+  --color-rose: #e5547a;
 
   --color-fg: var(--fg);
   --color-dim: var(--dim);
   --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --color-panel: var(--panel);
 
   --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Newsreader", "Iowan Old Style", Georgia, serif;
@@ -48,10 +48,12 @@
 }
 
 :root {
-  --bg: #bab5aa;
-  --fg: #1c1a17;
-  --dim: rgba(28, 26, 23, 0.72);
-  --rule: rgba(28, 26, 23, 0.32);
+  --bg: #1e2a78;
+  --fg: #fff8ee;
+  --dim: rgba(255, 248, 238, 0.76);
+  --rule: rgba(255, 248, 238, 0.34);
+  --accent: #ffc960;
+  --panel: #ffffff;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   color-scheme: light dark;
@@ -82,15 +84,15 @@ body::after {
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.16;
+  opacity: 0.1;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
 @layer base {
 ::selection {
-  background: var(--color-vermilion);
-  color: var(--color-bone);
+  background: var(--color-gold);
+  color: var(--color-navy);
 }
 
 :focus {
@@ -142,6 +144,66 @@ button {
   scrollbar-color: var(--rule) transparent;
 }
 
+/* ---------- the sky ---------- */
+
+.sky-cloud {
+  position: absolute;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  filter: blur(30px);
+  will-change: transform;
+  transition: background 1.2s var(--ease-settle);
+}
+.sky-cloud-a {
+  animation: cloud-a 34s ease-in-out infinite alternate;
+}
+.sky-cloud-b {
+  animation: cloud-b 41s ease-in-out infinite alternate;
+}
+.sky-cloud-c {
+  animation: cloud-c 47s ease-in-out infinite alternate;
+}
+@keyframes cloud-a {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(22vw, 12vh) scale(1.18); }
+  100% { transform: translate(8vw, 26vh) scale(0.92); }
+}
+@keyframes cloud-b {
+  0% { transform: translate(0, 0) scale(1.05); }
+  50% { transform: translate(-24vw, -10vh) scale(0.9); }
+  100% { transform: translate(-10vw, 18vh) scale(1.2); }
+}
+@keyframes cloud-c {
+  0% { transform: translate(0, 0) scale(0.95); }
+  50% { transform: translate(-16vw, -18vh) scale(1.15); }
+  100% { transform: translate(20vw, -6vh) scale(1); }
+}
+
+/* Words that float a little, as if carried by the same current as the field. */
+.float-slow {
+  animation: float-slow 9s ease-in-out infinite;
+}
+.float-slower {
+  animation: float-slow 13s ease-in-out infinite reverse;
+}
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -0.35rem, 0); }
+}
+
+/* A card that lifts toward the pointer. */
+.lift {
+  transition:
+    transform 0.6s var(--ease-settle),
+    background-color 0.6s var(--ease-settle),
+    box-shadow 0.6s var(--ease-settle);
+}
+.lift:hover,
+.lift:focus-within {
+  transform: translateY(-3px);
+}
+
 .vertical {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
@@ -152,6 +214,7 @@ button {
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
+    animation: none !important;
     scroll-behavior: auto !important;
   }
 }

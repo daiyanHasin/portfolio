@@ -16,7 +16,7 @@ interface Props {
 }
 
 /**
- * The index of studies. Titles are compressed until attended to, then open up,
+ * The index of projects. Titles are compressed until attended to, then open up,
  * the same rule the field follows. The field to the right takes the form of
  * whichever study is under attention; there are no thumbnails.
  */
@@ -84,7 +84,7 @@ export function Work({ reduced, small, focusId, openId, onFocusProject, onOpen }
                     </span>
                     <Line i={i + 1} reduced={reduced}>
                       <span
-                        className={`block whitespace-nowrap ${p.featured ? "text-[clamp(2.3rem,0.8rem+4.2vw,4.9rem)] leading-[0.95]" : "text-[clamp(1.7rem,0.9rem+2.6vw,3.2rem)] leading-[0.95]"}`}
+                        className={`block text-balance ${p.featured ? "text-[clamp(2.1rem,0.8rem+3.8vw,4.6rem)] leading-[0.95]" : "text-[clamp(1.5rem,0.9rem+1.9vw,2.6rem)] leading-[1]"}`}
                         style={{
                           fontVariationSettings: active ? '"wdth" 106, "wght" 270' : '"wdth" 68, "wght" 560',
                           transition: "font-variation-settings .7s var(--ease-settle)",

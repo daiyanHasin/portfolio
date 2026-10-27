@@ -46,7 +46,7 @@ export function Contact({ reduced, small, onBeginAgain }: Props) {
           {scenes.contact.title}
         </h2>
         {lines.length > 0 && (
-          <p className="text-[clamp(2.9rem,0.8rem+7.6vw,9rem)] leading-[0.9]" style={{ fontVariationSettings: '"wdth" 92, "wght" 330' }}>
+          <p className="float-slower text-[clamp(2.9rem,0.8rem+7.6vw,9rem)] leading-[0.9]" style={{ fontVariationSettings: '"wdth" 92, "wght" 330' }}>
             {lines.map((l, i) => (
               <Line key={i} i={i} reduced={reduced} className={i === 1 ? "sm:ml-[12vw]" : ""}>
                 {l}
@@ -66,6 +66,11 @@ export function Contact({ reduced, small, onBeginAgain }: Props) {
                 <span aria-live="polite">{copied ? labels.copied : labels.copyEmail}</span>
               </button>
             </div>
+          )}
+          {contact.phone && (
+            <a href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`} className="draw-line mt-2 inline-block font-serif text-body text-dim hover:text-fg">
+              {contact.phone}
+            </a>
           )}
         </motion.div>
       </div>

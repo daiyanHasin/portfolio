@@ -82,7 +82,15 @@ export function ProjectView({ project, index, total, reduced, small, onClose, on
       animate={reduced ? { opacity: 1 } : { clipPath: "inset(0 0 0 0)", transition: { duration: 0.75, ease: ease.cut } }}
       exit={reduced ? { opacity: 0 } : { clipPath: enterClip, transition: { duration: 0.5, ease: ease.cut } }}
     >
-      <div className="absolute inset-0 border-rule bg-charcoal-raised sm:border-l" style={{ ["--rule" as string]: grades.work.rule }} />
+      <div
+        className="absolute inset-0 border-rule shadow-[0_0_80px_rgba(18,34,79,0.18)] backdrop-blur-xl sm:border-l"
+        style={{ ["--rule" as string]: grades.work.rule, background: `color-mix(in srgb, ${grades.work.panel} 88%, transparent)` }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-1"
+        style={{ background: `linear-gradient(90deg, ${accent}, transparent)` }}
+      />
       <div
         ref={panel}
         className="own-scroll relative h-full px-6 sm:px-[5vw]"

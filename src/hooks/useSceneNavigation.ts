@@ -27,7 +27,7 @@ const isTyping = (t: EventTarget | null) =>
   t instanceof HTMLElement && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
 
 /**
- * Keyboard (arrows, Page Up/Down, 1–4, Home), wheel and vertical swipe move
+ * Keyboard (arrows, Page Up/Down, number keys, Home), wheel and vertical swipe move
  * between scenes. Inner scroll areas keep their own scrolling until they reach
  * an end, so nothing becomes a scroll trap.
  */
@@ -65,7 +65,7 @@ export function useSceneNavigation({ enabled, next, prev, jump, onAnyInput }: Op
       } else if (k === "Home") {
         e.preventDefault();
         opts.current.jump(0);
-      } else if (/^[1-4]$/.test(k)) {
+      } else if (/^[1-9]$/.test(k)) {
         opts.current.jump(Number(k) - 1);
       }
     };
