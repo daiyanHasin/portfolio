@@ -130,6 +130,16 @@ export function ProjectView({ project, index, total, reduced, small, onClose, on
             </motion.p>
           )}
 
+          {project.image && (
+            <motion.div
+              variants={st}
+              custom={2}
+              className="mt-8 overflow-hidden rounded-xl bg-white shadow-[0_24px_60px_-24px_rgba(18,34,79,0.45)] ring-1 ring-[rgba(18,34,79,0.1)]"
+            >
+              <img src={project.image} alt={project.imageAlt} decoding="async" className="block w-full" />
+            </motion.div>
+          )}
+
           {sections.length > 0 && (
             <motion.dl variants={st} custom={2} className="mt-12 border-t border-rule">
               {sections.map((k) => (

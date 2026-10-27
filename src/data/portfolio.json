@@ -8,27 +8,65 @@
   "identity": {
     "displayName": "Hasin Md. Daiyan",
     "studyTitle": "Computer vision, machine learning and automation",
-    "headline": ["Reach for", "what isn't", "built yet."],
+    "headline": [
+      "Reach for",
+      "what isn't",
+      "built yet."
+    ],
     "shortBio": "Computer Science graduate working in computer vision and machine learning, with published IEEE research on diffusion-based satellite image reconstruction. Day to day I build automation with Playwright and Appium, and tools that make code easier to understand.",
     "positioning": "Researches models. Builds the tools around them.",
     "status": "Open to research and engineering roles",
     "location": "Dhaka, Bangladesh",
     "resumeUrl": "",
+    "photo": "",
+    "photoAlt": "Portrait of Hasin Md. Daiyan",
     "label": [
-      { "key": "Now", "value": "Automation Engineer Intern, TechHub, Save the Children" },
-      { "key": "Studying", "value": "M.Sc. Management of Technology, BUET" },
-      { "key": "Based in", "value": "Dhaka, Bangladesh" }
+      {
+        "key": "Now",
+        "value": "Automation Engineer Intern, TechHub, Save the Children"
+      },
+      {
+        "key": "Studying",
+        "value": "M.Sc. Management of Technology, BUET"
+      },
+      {
+        "key": "Based in",
+        "value": "Dhaka, Bangladesh"
+      }
     ]
   },
   "navigation": [
-    { "id": "home", "label": "Index", "target": "home" },
-    { "id": "work", "label": "Projects", "target": "work" },
-    { "id": "research", "label": "Research", "target": "research" },
-    { "id": "about", "label": "About", "target": "about" },
-    { "id": "contact", "label": "Contact", "target": "contact" }
+    {
+      "id": "home",
+      "label": "Index",
+      "target": "home"
+    },
+    {
+      "id": "work",
+      "label": "Projects",
+      "target": "work"
+    },
+    {
+      "id": "research",
+      "label": "Research",
+      "target": "research"
+    },
+    {
+      "id": "about",
+      "label": "About",
+      "target": "about"
+    },
+    {
+      "id": "contact",
+      "label": "Contact",
+      "target": "contact"
+    }
   ],
   "scenes": {
-    "home": { "title": "Index", "description": "Move across the sky. The hand holds its shape wherever you look." },
+    "home": {
+      "title": "Index",
+      "description": "Move across the sky. The hand holds its shape wherever you look."
+    },
     "work": {
       "title": "Projects",
       "description": "Tools, test frameworks and machine learning studies. Open one to see how it was made."
@@ -58,9 +96,24 @@
       "idea": "Be the librarian, not the expert. CodeBase knows the whole project and builds one block of text that fits the chat: instructions, a project brief, the task, the few files that matter, and outlines of the files around them.",
       "approach": "Architecture, flows and history come from reading the code and Git, without running it and without AI. It ships as one small executable for Windows, macOS and Linux that serves a local web interface.",
       "details": "Offline and free: no account, no API key, no telemetry. Nothing leaves the computer until the user pastes it somewhere.",
-      "technologies": ["Rust", "Static analysis", "Git", "Local web UI"],
-      "links": { "live": "", "repository": "https://github.com/daiyanHasin/CodeBase", "caseStudy": "" },
-      "visual": { "type": "lattice", "accent": "sky", "seed": 11 },
+      "technologies": [
+        "Rust",
+        "Static analysis",
+        "Git",
+        "Local web UI"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/daiyanHasin/CodeBase",
+        "caseStudy": ""
+      },
+      "image": "",
+      "imageAlt": "",
+      "visual": {
+        "type": "lattice",
+        "accent": "sky",
+        "seed": 11
+      },
       "featured": true
     },
     {
@@ -73,9 +126,25 @@
       "problem": "Maestro has no Excel data-driven testing, little feedback about which step is running, and no run history. Twenty data sets meant twenty copies of a flow or twenty command lines.",
       "approach": "Record in one window, run any flows with any Excel rows, watch every step live, and read one report per test with run comparison and flaky-test detection. Screenshots are compressed on the phone, about ten times smaller than PNG.",
       "details": "Everything runs on the PC: no account, no cloud, no upload. Light and dark themes.",
-      "technologies": ["JavaScript", "Node.js", "Maestro", "Android (adb)", "Excel"],
-      "links": { "live": "", "repository": "https://github.com/daiyanHasin/understudy", "caseStudy": "" },
-      "visual": { "type": "frames", "accent": "coral", "seed": 23 },
+      "technologies": [
+        "JavaScript",
+        "Node.js",
+        "Maestro",
+        "Android (adb)",
+        "Excel"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/daiyanHasin/understudy",
+        "caseStudy": ""
+      },
+      "image": "/projects/understudy.webp",
+      "imageAlt": "Understudy recording a test: the phone screen with an element menu open, and the recorded steps beside it",
+      "visual": {
+        "type": "frames",
+        "accent": "coral",
+        "seed": 23
+      },
       "featured": true
     },
     {
@@ -88,9 +157,23 @@
       "problem": "Three months into a thesis the questions are always the same: which paper did this preprocessing step come from, and why did accuracy drop between two drafts? Reference managers don't know your code, and Git doesn't know your papers.",
       "approach": "Paper cards record data, preprocessing, features, model, training and evaluation, each item linked to its source sentence. Code history works without Git, and a per-stage comparison matrix puts every paper beside your own work.",
       "limitations": "Working draft (v0.1). The core loop works end to end and has tests, but it is not yet something to rely on for a thesis.",
-      "technologies": ["Rust", "Information retrieval", "Local-first"],
-      "links": { "live": "", "repository": "https://github.com/daiyanHasin/Researchtrail", "caseStudy": "" },
-      "visual": { "type": "strata", "accent": "violet", "seed": 31 },
+      "technologies": [
+        "Rust",
+        "Information retrieval",
+        "Local-first"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/daiyanHasin/Researchtrail",
+        "caseStudy": ""
+      },
+      "image": "",
+      "imageAlt": "",
+      "visual": {
+        "type": "strata",
+        "accent": "violet",
+        "seed": 31
+      },
       "featured": true
     },
     {
@@ -102,13 +185,26 @@
       "description": "End-to-end BDD frameworks for OrangeHRM (an HR system, 12 scenarios) and ParaBank (an online bank), with smoke, regression and E2E suites, multi-role flows and HTML reports.",
       "approach": "Gherkin scenarios bound to C# steps, page objects with selectors kept in one place, Excel-driven test data, tag-based login hooks, and cross-browser runs headed locally or headless in GitHub Actions.",
       "details": "Built to stay stable on a slow shared demo site: explicit visibility waits, navigation retries, and autocomplete handling that checks the selection actually took.",
-      "technologies": ["C#", ".NET", "Playwright", "Reqnroll", "NUnit", "GitHub Actions"],
+      "technologies": [
+        "C#",
+        ".NET",
+        "Playwright",
+        "Reqnroll",
+        "NUnit",
+        "GitHub Actions"
+      ],
       "links": {
         "live": "https://test-automation-practice-hasindaiyan.vercel.app",
         "repository": "https://github.com/daiyanHasin/test-automation-practice",
         "caseStudy": ""
       },
-      "visual": { "type": "monolith", "accent": "teal", "seed": 37 },
+      "image": "/projects/qa-automation.webp",
+      "imageAlt": "The QA automation showcase site",
+      "visual": {
+        "type": "monolith",
+        "accent": "teal",
+        "seed": 37
+      },
       "featured": true
     },
     {
@@ -120,9 +216,24 @@
       "description": "Tracks daily spending, salary, bank, bKash and cash balances, loans, big purchases and saving plans. It began as a PHP and MySQL web app and was rebuilt as an installable mobile web app.",
       "idea": "Answer the questions that matter on the way home: how much is left, and was today an expensive day? It knows the office week, so it can show what an office day really costs compared with a home day.",
       "details": "Private by design: each database row is locked to its owner, with no ads, trackers or third-party scripts. Old Notepad notes can be pasted in and become real entries.",
-      "technologies": ["Next.js", "Tailwind CSS", "Supabase", "PWA"],
-      "links": { "live": "", "repository": "https://github.com/daiyanHasin/koineze", "caseStudy": "" },
-      "visual": { "type": "concentric", "accent": "gold", "seed": 43 },
+      "technologies": [
+        "Next.js",
+        "Tailwind CSS",
+        "Supabase",
+        "PWA"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/daiyanHasin/koineze",
+        "caseStudy": ""
+      },
+      "image": "/projects/koineze.webp",
+      "imageAlt": "Koineze home, add, ledger and money screens",
+      "visual": {
+        "type": "concentric",
+        "accent": "gold",
+        "seed": 43
+      },
       "featured": true
     },
     {
@@ -134,13 +245,25 @@
       "description": "Predicting taxi trip duration with PySpark, comparing classical machine learning with deep learning, and clustering trips to find patterns across the city.",
       "approach": "Cleaned invalid records, engineered features such as trip duration, distance, hour of day and day of week, then trained linear regression, gradient-boosted trees, CNN and LSTM models and ran K-means clustering.",
       "results": "Gradient-boosted trees reached 70.4% accuracy within a 10% range, and LSTM 71.4%. Demand peaked on Fridays and Saturdays, and weekday trips ran longer because of traffic.",
-      "technologies": ["PySpark", "Hadoop", "Python", "Matplotlib", "Seaborn"],
+      "technologies": [
+        "PySpark",
+        "Hadoop",
+        "Python",
+        "Matplotlib",
+        "Seaborn"
+      ],
       "links": {
         "live": "",
         "repository": "https://github.com/daiyanHasin/Exploring-New-York-Taxi-Trip-Duration-with-Big-and-PySpark",
         "caseStudy": ""
       },
-      "visual": { "type": "drift", "accent": "gold", "seed": 52 },
+      "image": "",
+      "imageAlt": "",
+      "visual": {
+        "type": "drift",
+        "accent": "gold",
+        "seed": 52
+      },
       "featured": false
     },
     {
@@ -150,9 +273,25 @@
       "year": "2024",
       "summary": "Finding and locating objects in high-resolution satellite imagery.",
       "description": "Trained YOLOv5 and Fast R-CNN detectors on satellite imagery with COCO-format annotations, from preprocessing to inference with bounding-box overlays.",
-      "technologies": ["YOLOv5", "Fast R-CNN", "PyTorch", "OpenCV", "Python"],
-      "links": { "live": "", "repository": "https://github.com/daiyanHasin/Object-Detection-From-Satellite-Images", "caseStudy": "" },
-      "visual": { "type": "lattice", "accent": "sky", "seed": 61 },
+      "technologies": [
+        "YOLOv5",
+        "Fast R-CNN",
+        "PyTorch",
+        "OpenCV",
+        "Python"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/daiyanHasin/Object-Detection-From-Satellite-Images",
+        "caseStudy": ""
+      },
+      "image": "",
+      "imageAlt": "",
+      "visual": {
+        "type": "lattice",
+        "accent": "sky",
+        "seed": 61
+      },
       "featured": false
     },
     {
@@ -163,13 +302,25 @@
       "summary": "How weather shapes renewable energy output, modelled with LSTM and HMM.",
       "description": "Predicting hourly energy generation from temperature, humidity, wind, precipitation and solar irradiance, and uncovering hidden weather regimes.",
       "results": "The LSTM reached R² 0.87 with an MAE of 170.2; the HMM also reached R² 0.87 and helped reveal latent weather states.",
-      "technologies": ["LSTM", "HMM", "TensorFlow", "hmmlearn", "Python"],
+      "technologies": [
+        "LSTM",
+        "HMM",
+        "TensorFlow",
+        "hmmlearn",
+        "Python"
+      ],
       "links": {
         "live": "",
         "repository": "https://github.com/daiyanHasin/Regression-Analysis-on-Dataset-Renewable-Energy-and-Weather-Conditions",
         "caseStudy": ""
       },
-      "visual": { "type": "strata", "accent": "teal", "seed": 67 },
+      "image": "",
+      "imageAlt": "",
+      "visual": {
+        "type": "strata",
+        "accent": "teal",
+        "seed": 67
+      },
       "featured": false
     },
     {
@@ -181,9 +332,25 @@
       "description": "Classifying Bengali comments by sentiment and comparing CNN, RNN and LSTM models with a logistic regression baseline, using TF-IDF and bag-of-words features.",
       "results": "Logistic regression came out ahead (41.7% accuracy); the deep models underperformed with the data available.",
       "limitations": "Limited labelled data and unstable training held the neural models back. Better data and model design are the next step.",
-      "technologies": ["CNN", "LSTM", "TensorFlow", "scikit-learn", "bnlp"],
-      "links": { "live": "", "repository": "https://github.com/daiyanHasin/Sentiment-Analysis-on-Bengali-Text", "caseStudy": "" },
-      "visual": { "type": "drift", "accent": "rose", "seed": 71 },
+      "technologies": [
+        "CNN",
+        "LSTM",
+        "TensorFlow",
+        "scikit-learn",
+        "bnlp"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/daiyanHasin/Sentiment-Analysis-on-Bengali-Text",
+        "caseStudy": ""
+      },
+      "image": "",
+      "imageAlt": "",
+      "visual": {
+        "type": "drift",
+        "accent": "rose",
+        "seed": 71
+      },
       "featured": false
     },
     {
@@ -193,9 +360,23 @@
       "year": "2023",
       "summary": "A convolutional network for classifying images from datasets like MNIST.",
       "description": "Built and trained a CNN in TensorFlow and Keras for image classification.",
-      "technologies": ["Python", "TensorFlow", "Keras"],
-      "links": { "live": "", "repository": "", "caseStudy": "" },
-      "visual": { "type": "lattice", "accent": "violet", "seed": 79 },
+      "technologies": [
+        "Python",
+        "TensorFlow",
+        "Keras"
+      ],
+      "links": {
+        "live": "",
+        "repository": "",
+        "caseStudy": ""
+      },
+      "image": "",
+      "imageAlt": "",
+      "visual": {
+        "type": "lattice",
+        "accent": "violet",
+        "seed": 79
+      },
       "featured": false
     },
     {
@@ -205,9 +386,24 @@
       "year": "2023",
       "summary": "An art gallery management system.",
       "description": "A desktop app for managing artists, artworks, customers and gallery sales, with full CRUD operations on a MySQL database and optimised queries.",
-      "technologies": ["Java", "Swing", "MySQL", "JDBC"],
-      "links": { "live": "", "repository": "https://github.com/daiyanHasin/Daliesque", "caseStudy": "" },
-      "visual": { "type": "frames", "accent": "rose", "seed": 83 },
+      "technologies": [
+        "Java",
+        "Swing",
+        "MySQL",
+        "JDBC"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/daiyanHasin/Daliesque",
+        "caseStudy": ""
+      },
+      "image": "",
+      "imageAlt": "",
+      "visual": {
+        "type": "frames",
+        "accent": "rose",
+        "seed": 83
+      },
       "featured": false
     },
     {
@@ -217,9 +413,23 @@
       "year": "2022",
       "summary": "A real-time group chat application.",
       "description": "A multi-user chat room with a server-client architecture over Java sockets, user authentication and a Swing interface.",
-      "technologies": ["Java", "Sockets", "Swing"],
-      "links": { "live": "", "repository": "https://github.com/daiyanHasin/BetaChat", "caseStudy": "" },
-      "visual": { "type": "concentric", "accent": "coral", "seed": 89 },
+      "technologies": [
+        "Java",
+        "Sockets",
+        "Swing"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/daiyanHasin/BetaChat",
+        "caseStudy": ""
+      },
+      "image": "",
+      "imageAlt": "",
+      "visual": {
+        "type": "concentric",
+        "accent": "coral",
+        "seed": 89
+      },
       "featured": false
     }
   ],
@@ -241,7 +451,12 @@
         "Preprocessed satellite images with cloud masking and normalisation.",
         "Evaluated reconstructions with pixel-wise loss against ground-truth images."
       ],
-      "technologies": ["Stable Diffusion", "Inpainting", "PyTorch", "Remote sensing"],
+      "technologies": [
+        "Stable Diffusion",
+        "Inpainting",
+        "PyTorch",
+        "Remote sensing"
+      ],
       "accent": "sky"
     },
     {
@@ -257,7 +472,11 @@
       "authors": [],
       "objective": "Study how delayed fraud labels, the history of each entity, and the choice of model shape what a fraud detector can honestly claim.",
       "contributions": [],
-      "technologies": ["Fraud detection", "Tabular machine learning", "Graph learning"],
+      "technologies": [
+        "Fraud detection",
+        "Tabular machine learning",
+        "Graph learning"
+      ],
       "accent": "coral"
     }
   ],
@@ -309,18 +528,80 @@
       }
     ],
     "skills": [
-      { "group": "Programming", "items": ["Python", "C", "C++", "C#", "Java", "Rust", "TypeScript"] },
-      { "group": "Machine learning", "items": ["Deep learning", "Computer vision", "PyTorch", "TensorFlow", "PySpark"] },
-      { "group": "Automation", "items": ["Playwright", "Appium", "Maestro", "Reqnroll"] },
-      { "group": "Web", "items": ["HTML", "CSS", "PHP", "Next.js"] },
-      { "group": "Databases", "items": ["MySQL", "MSSQL", "Supabase"] },
-      { "group": "Tools", "items": ["Git and GitHub", "Canva", "PowerPoint"] }
+      {
+        "group": "Programming",
+        "items": [
+          "Python",
+          "C",
+          "C++",
+          "C#",
+          "Java",
+          "Rust",
+          "TypeScript"
+        ]
+      },
+      {
+        "group": "Machine learning",
+        "items": [
+          "Deep learning",
+          "Computer vision",
+          "PyTorch",
+          "TensorFlow",
+          "PySpark"
+        ]
+      },
+      {
+        "group": "Automation",
+        "items": [
+          "Playwright",
+          "Appium",
+          "Maestro",
+          "Reqnroll"
+        ]
+      },
+      {
+        "group": "Web",
+        "items": [
+          "HTML",
+          "CSS",
+          "PHP",
+          "Next.js"
+        ]
+      },
+      {
+        "group": "Databases",
+        "items": [
+          "MySQL",
+          "MSSQL",
+          "Supabase"
+        ]
+      },
+      {
+        "group": "Tools",
+        "items": [
+          "Git and GitHub",
+          "Canva",
+          "PowerPoint"
+        ]
+      }
     ],
     "courses": [
-      { "title": "Neural Networks and Deep Learning", "provider": "Andrew Ng, Coursera" },
-      { "title": "UI/UX Design: Wireframe, Mockup and Design in Figma", "provider": "freeCodeCamp" },
-      { "title": "Introduction to Machine Learning", "provider": "Kaggle" },
-      { "title": "Git and GitHub for Beginners", "provider": "freeCodeCamp" }
+      {
+        "title": "Neural Networks and Deep Learning",
+        "provider": "Andrew Ng, Coursera"
+      },
+      {
+        "title": "UI/UX Design: Wireframe, Mockup and Design in Figma",
+        "provider": "freeCodeCamp"
+      },
+      {
+        "title": "Introduction to Machine Learning",
+        "provider": "Kaggle"
+      },
+      {
+        "title": "Git and GitHub for Beginners",
+        "provider": "freeCodeCamp"
+      }
     ],
     "leadership": [
       {
@@ -340,8 +621,14 @@
     "email": "daiyanhasin07@gmail.com",
     "phone": "+880 1533 376565",
     "socials": [
-      { "label": "GitHub", "url": "https://github.com/daiyanHasin" },
-      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/HasinDaiyan" }
+      {
+        "label": "GitHub",
+        "url": "https://github.com/daiyanHasin"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/HasinDaiyan"
+      }
     ],
     "closingStatement": "There is always further to reach."
   },
@@ -353,7 +640,6 @@
     "nextProject": "Next project",
     "previousProject": "Previous project",
     "beginAgain": "Back to the start",
-    "orderReadout": "Order",
     "pointerHint": "Move to look",
     "touchHint": "Touch to look",
     "keyboardHint": "Arrow keys or 1 to 5 change scenes",
@@ -371,7 +657,11 @@
     "objective": "Objective",
     "contributions": "What I did",
     "authors": "Authors",
-    "links": { "live": "Live version", "repository": "Repository", "caseStudy": "Case study" },
+    "links": {
+      "live": "Live version",
+      "repository": "Repository",
+      "caseStudy": "Case study"
+    },
     "sections": {
       "problem": "The problem",
       "idea": "The idea",

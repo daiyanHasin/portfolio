@@ -73,6 +73,8 @@ export class FieldEngine {
   private irr = new Uint8Array(0);
   private pairs = new Int32Array(0);
   private pairCount = 0;
+  /** Threads longer than this (squared, px) are not drawn: those points are still on their way. */
+  private maxThread2 = 0;
 
   // Embers: a separate, small population that only ever rises.
   private mN = 0;
@@ -349,6 +351,7 @@ export class FieldEngine {
     }
     this.pairs = out;
     this.pairCount = c / 2;
+    this.maxThread2 = (threshold * 2.2) ** 2;
   }
 
   private loop = (now: number) => {
@@ -407,6 +410,9 @@ export class FieldEngine {
     const R2 = g.r * g.r;
     const P2 = R2 * 0.45;
     const t = this.t;
+    // Everything below is tuned per 60 fps frame; scale by elapsed time so slow devices settle just as fast.
+    const f60 = reduced ? 1 : Math.min(dt * 60, 4);
+    const damp = Math.pow(0.9, f60);
     const disturb = !reduced && Math.abs(g.vx) + Math.abs(g.vy) > 0.5;
     let sumOrd = 0;
     let maxMove = 0;
@@ -423,7 +429,8 @@ export class FieldEngine {
       let o = this.ord[i];
       const want = isIrr || d2 >= R2 ? 0 : Math.min(1, (1 - d2 / R2) * 1.6);
       const before = o;
-      o += (want - o) * (want > o ? 0.2 : reduced ? 0.2 : 0.011);
+      const rate = want > o ? 0.2 : reduced ? 0.2 : 0.011;
+      o += (want - o) * (1 - Math.pow(1 - rate, f60));
       this.ord[i] = o;
       if (Math.abs(o - before) > maxOrdDelta) maxOrdDelta = Math.abs(o - before);
       sumOrd += o;
@@ -439,8 +446,8 @@ export class FieldEngine {
         this.vx[i] += g.vx * 0.05 * fall;
         this.vy[i] += g.vy * 0.05 * fall;
       }
-      this.vx[i] *= 0.9;
-      this.vy[i] *= 0.9;
+      this.vx[i] *= damp;
+      this.vy[i] *= damp;
 
       let fx = 0;
       let fy = 0;
@@ -452,7 +459,7 @@ export class FieldEngine {
         fy = fAmp * calm * (Math.cos(tx * kf * 0.9 - t * 0.53) * 0.7 - 0.35 * Math.sin(ty * kf * 1.3 + t * 0.8));
       }
 
-      const k = reduced ? 1 : this.k[i];
+      const k = reduced ? 1 : 1 - Math.pow(1 - this.k[i], f60);
       const mx = (this.tx[i] + fx + ox * a - x) * k + this.vx[i];
       const my = (this.ty[i] + fy + oy * a - y) * k + this.vy[i];
       this.px[i] = x + mx;
@@ -562,6 +569,9 @@ export class FieldEngine {
       const b = pr[c * 2 + 1];
       const o = Math.max(Math.min(this.ord[a], this.ord[b]), this.presence);
       if (o < 0.3) continue;
+      const ddx = this.px[b] - this.px[a];
+      const ddy = this.py[b] - this.py[a];
+      if (ddx * ddx + ddy * ddy > this.maxThread2) continue;
       const path = o > 0.72 ? l1 : o > 0.5 ? l2 : l3;
       path.moveTo(this.px[a], this.py[a]);
       path.lineTo(this.px[b], this.py[b]);

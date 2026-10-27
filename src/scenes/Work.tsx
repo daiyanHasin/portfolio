@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { content } from "../data/content";
 import { accents } from "../config/palette";
 import { Line } from "../components/Line";
@@ -26,6 +26,41 @@ export function Work({ reduced, small, focusId, openId, onFocusProject, onOpen }
   const focused = projects.find((p) => p.id === focusId) ?? null;
   const focusedIndex = focused ? projects.indexOf(focused) : -1;
   const st = settle(reduced);
+
+  // Arrive with the first project selected, so its figure is already showing.
+  useEffect(() => {
+    if (focusId === null && projects.length > 0) onFocusProject(projects[0].id);
+    // Only on arrival.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const figure = focused && !openId && (
+    <motion.figure
+      key={focused.id}
+      initial={{ opacity: 0, y: reduced ? 0 : 14, scale: reduced ? 1 : 0.985 }}
+      animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }}
+      exit={{ opacity: 0, y: reduced ? 0 : -8, transition: { duration: 0.18 } }}
+    >
+      {focused.image && (
+        <div className="float-slow mb-4 overflow-hidden rounded-xl bg-white shadow-[0_24px_60px_-20px_rgba(18,34,79,0.45)] ring-1 ring-[rgba(18,34,79,0.12)]">
+          <img src={focused.image} alt={focused.imageAlt} decoding="async" className="block max-h-[46vh] w-full object-cover object-top" />
+        </div>
+      )}
+      <figcaption className="font-serif text-body italic leading-[1.45]">
+        <span className="mr-2 font-mono text-note not-italic font-semibold" style={{ color: accents[focused.visual.accent] }}>
+          {labels.figurePrefix} {focusedIndex + 1}
+        </span>
+        {focused.summary}
+      </figcaption>
+      {focused.technologies.length > 0 && (
+        <ul className="mt-2 flex flex-wrap gap-x-4 font-mono text-note text-dim">
+          {focused.technologies.map((t) => (
+            <li key={t}>{t}</li>
+          ))}
+        </ul>
+      )}
+    </motion.figure>
+  );
 
   return (
     <div className="relative h-full w-full">
@@ -55,7 +90,7 @@ export function Work({ reduced, small, focusId, openId, onFocusProject, onOpen }
             {labels.emptyWork}
           </motion.p>
         ) : (
-          <ol ref={listRef} onMouseLeave={() => !openId && onFocusProject(null)}>
+          <ol ref={listRef}>
             {projects.map((p, i) => {
               const active = p.id === focusId;
               const dimmed = focusId !== null && !active;
@@ -77,7 +112,7 @@ export function Work({ reduced, small, focusId, openId, onFocusProject, onOpen }
                     onFocus={() => onFocusProject(p.id)}
                     onClick={(e) => onOpen(p.id, e.currentTarget)}
                     className="group grid w-full grid-cols-[3.2rem_1fr] items-baseline py-3 text-left sm:grid-cols-[4.5rem_1fr] sm:py-4"
-                    style={{ opacity: dimmed ? 0.36 : 1, transition: "opacity .6s var(--ease-settle)" }}
+                    style={{ opacity: dimmed ? 0.55 : 1, transition: "opacity .6s var(--ease-settle)" }}
                   >
                     <span className="font-mono text-note text-dim tabular-nums">
                       {labels.studyPrefix} {i + 1}
@@ -108,34 +143,31 @@ export function Work({ reduced, small, focusId, openId, onFocusProject, onOpen }
         )}
       </div>
 
-      {/* Figure caption for the field, desktop only. */}
-      {!small && (
-        <div className="pointer-events-none absolute right-9 w-[min(24rem,34vw)]" style={{ bottom: "calc(var(--safe-bottom) + 5.8rem)" }}>
-          <AnimatePresence mode="wait">
-            {focused && !openId && (
-              <motion.figure
-                key={focused.id}
-                initial={{ opacity: 0, y: reduced ? 0 : 8 }}
-                animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }}
-                exit={{ opacity: 0, transition: { duration: 0.15 } }}
-              >
-                <figcaption className="font-serif text-body italic leading-[1.45]">
-                  <span className="mr-2 font-mono text-note not-italic" style={{ color: accents[focused.visual.accent] }}>
-                    {labels.figurePrefix} {focusedIndex + 1}
-                  </span>
-                  {focused.summary}
-                </figcaption>
-                {focused.technologies.length > 0 && (
-                  <ul className="mt-2 flex flex-wrap gap-x-4 font-mono text-note text-dim">
-                    {focused.technologies.map((t) => (
-                      <li key={t}>{t}</li>
-                    ))}
-                  </ul>
-                )}
-              </motion.figure>
-            )}
-          </AnimatePresence>
+      {/* The selected project's figure: a screenshot when there is one, otherwise the field takes its form. */}
+      {!small ? (
+        <div
+          className="pointer-events-none absolute right-9 w-[min(30rem,36vw)]"
+          style={focused?.image ? { top: "calc(var(--safe-top) + 7rem)" } : { bottom: "calc(var(--safe-bottom) + 5.8rem)" }}
+        >
+          <AnimatePresence mode="wait">{figure}</AnimatePresence>
         </div>
+      ) : (
+        focused?.image &&
+        !openId && (
+          <div className="pointer-events-none absolute inset-x-6" style={{ top: "calc(var(--safe-top) + 4.6rem)", height: "calc(42vh - 5.6rem)" }}>
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={focused.id}
+                src={focused.image}
+                alt={focused.imageAlt}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="h-full w-full rounded-xl object-cover object-top shadow-[0_18px_40px_-18px_rgba(18,34,79,0.5)]"
+              />
+            </AnimatePresence>
+          </div>
+        )
       )}
     </div>
   );

@@ -48,6 +48,9 @@ export interface Identity {
   status: string;
   location: string;
   resumeUrl: string;
+  /** Portrait: a file in public/ (e.g. "/photo.jpg") or an https URL. Empty shows initials. */
+  photo: string;
+  photoAlt: string;
   label: LabelEntry[];
 }
 
@@ -95,6 +98,9 @@ export interface Project {
   sections: Partial<Record<ProjectSectionKey, string>>;
   technologies: string[];
   links: ProjectLinks;
+  /** Optional screenshot shown as the project's figure: a file in public/ or an https URL. */
+  image: string;
+  imageAlt: string;
   visual: ProjectVisual;
   featured: boolean;
 }
@@ -170,7 +176,6 @@ export interface Labels {
   nextProject: string;
   previousProject: string;
   beginAgain: string;
-  orderReadout: string;
   pointerHint: string;
   touchHint: string;
   keyboardHint: string;

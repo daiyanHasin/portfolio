@@ -251,10 +251,10 @@ const strata: Gen = (n, r, rng) => {
 const horizon: Gen = (n, r, rng) => {
   const xs: number[] = [];
   const ys: number[] = [];
-  const hy = r.y + r.h * 0.7;
+  const hy = r.y + r.h * 0.84;
   const sunN = Math.floor(n * 0.24);
   const sr = Math.min(r.w, r.h) * 0.16;
-  const scx = r.x + r.w * 0.3;
+  const scx = r.x + r.w * 0.5;
   for (let ring = 0; ring < 4; ring++) {
     const rr = sr * (1 - ring * 0.2);
     const count = Math.floor(sunN / 4);
@@ -275,7 +275,7 @@ const horizon: Gen = (n, r, rng) => {
     xs,
     ys,
   );
-  const fx = r.x + r.w * 0.66;
+  const fx = r.x + r.w * 0.78;
   samplePolyline(
     [
       [fx, hy],

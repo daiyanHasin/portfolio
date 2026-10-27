@@ -51,12 +51,28 @@ Edit it, commit, push: Vercel rebuilds and the site updates.
 **About page:** `about.intro`, `experience`, `leadership` (role, org, period, points),
 `education` (degree, school, period, detail), `skills` (group, items), `courses` (title, provider).
 
+**Photo:** put it in `public/` (e.g. `public/photo.jpg`, portrait orientation, face in the upper
+third) and set `identity.photo` to `"/photo.jpg"`. It appears in an arch on the front page and the
+About page, with a warm tint from overlays; the file itself is not changed. Empty shows initials.
+
+**Project screenshots:** put an image in `public/projects/` and set the project's `image`
+(e.g. `"/projects/koineze.webp"`) and `imageAlt`. It shows as the project's figure and in its
+opened view. Projects without one show their field form instead.
+
 **Résumé button:** put the PDF in `public/` and set `identity.resumeUrl` to `"/resume.pdf"`.
 
 **Front page:** `identity.headline` holds the three headline lines; `identity.label` the small facts
 in the corner card. `contact` holds email, phone, social links and the closing line.
 
 Unknown values fall back to safe defaults with a warning in the dev console.
+
+## Security
+
+`vercel.json` sends a strict Content-Security-Policy (scripts only from this site; fonts only from
+Google Fonts; no frames, forms or plugins), plus nosniff, frame-deny, referrer, permissions and HSTS
+headers. Links and images from `portfolio.json` are filtered: only `https://`, `mailto:` or files in
+`public/` are used, so a bad value can never become a script. If you add a new external service
+(analytics, an embed), add its domain to the CSP or the browser will block it.
 
 ## Structure
 

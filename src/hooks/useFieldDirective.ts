@@ -62,6 +62,9 @@ export function directiveFor({ scene, project, projectOpen, vp }: Input): Direct
           seed: project.visual.seed,
           entropy: 0.6,
           flow: 0.7,
+          presence: 0.35,
+          // With a screenshot in front, the form becomes a quiet halo around it.
+          alpha: project.image && !projectOpen ? 0.4 : 1,
           region,
         };
       }
@@ -82,8 +85,9 @@ export function directiveFor({ scene, project, projectOpen, vp }: Input): Direct
         presence: 0.2,
         entropy: 0.7,
         flow: 0.9,
-        alpha: vp.small ? 0.45 : 1,
-        region: vp.small ? r(vp, 0.05, 0.1, 0.9, 0.5) : r(vp, 0.6, 0.1, 0.36, 0.8),
+        // Centred behind the papers; the cards are frosted so it shows through without crossing the type.
+        alpha: vp.small ? 0.4 : 0.75,
+        region: vp.small ? r(vp, 0.05, 0.1, 0.9, 0.5) : r(vp, 0.18, 0.06, 0.64, 0.9),
       };
     case "about":
       return {
@@ -93,8 +97,9 @@ export function directiveFor({ scene, project, projectOpen, vp }: Input): Direct
         presence: 0.2,
         entropy: 0.6,
         flow: 0.8,
-        alpha: vp.small ? 0.35 : 0.85,
-        region: vp.small ? r(vp, 0, 0.3, 1, 0.65) : r(vp, 0.62, 0.12, 0.34, 0.76),
+        // The page is full of text now, so the staircase climbs quietly behind all of it.
+        alpha: vp.small ? 0.25 : 0.3,
+        region: vp.small ? r(vp, 0, 0.3, 1, 0.65) : r(vp, 0.04, 0.16, 0.92, 0.78),
       };
     case "contact":
       return { ...base, form: "horizon", seed: 13, entropy: 0.6, flow: 1.1, glow: true, presence: 0.3, region: r(vp, 0, 0, 1, 1) };

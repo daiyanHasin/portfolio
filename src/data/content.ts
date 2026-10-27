@@ -108,6 +108,8 @@ function parseProject(p: Unknown, i: number): Project {
     description: str(p, "description", "", path),
     sections,
     technologies: strList(p.technologies, `${path}.technologies`),
+    image: safeImage(p.image),
+    imageAlt: str(p, "imageAlt", "", path) || `Screenshot of ${title}`,
     links: {
       live: safeUrl(linksRaw.live),
       repository: safeUrl(linksRaw.repository),
@@ -127,6 +129,14 @@ function localPath(v: unknown): string {
   if (typeof v !== "string") return "";
   const s = v.trim();
   return /^\/[\w\-./]+$/.test(s) && !s.includes("..") ? s : "";
+}
+
+/** Images: https only (never http, data: or javascript:), or a file in public/. */
+function safeImage(v: unknown): string {
+  if (typeof v !== "string") return "";
+  const s = v.trim();
+  if (/^https:\/\/[^\s"'<>]+$/i.test(s)) return s;
+  return /\.(png|jpe?g|webp|avif|gif|svg)$/i.test(s) ? localPath(s) : "";
 }
 
 function parsePaper(p: Unknown, i: number): Paper {
@@ -254,6 +264,8 @@ function parse(input: unknown): Portfolio {
       status: str(id, "status"),
       location: str(id, "location"),
       resumeUrl: safeUrl(id.resumeUrl) || localPath(id.resumeUrl),
+      photo: safeImage(id.photo),
+      photoAlt: str(id, "photoAlt") || `Portrait of ${str(id, "displayName", "the author")}`,
       label,
     },
     navigation,
@@ -277,7 +289,6 @@ function parse(input: unknown): Portfolio {
       nextProject: str(labelsRaw, "nextProject", "Next"),
       previousProject: str(labelsRaw, "previousProject", "Previous"),
       beginAgain: str(labelsRaw, "beginAgain", "Begin again"),
-      orderReadout: str(labelsRaw, "orderReadout", "Order"),
       pointerHint: str(labelsRaw, "pointerHint", "Move to look"),
       touchHint: str(labelsRaw, "touchHint", "Touch to look"),
       keyboardHint: str(labelsRaw, "keyboardHint", ""),

@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { content } from "../data/content";
 import { GazeHeadline } from "../components/GazeHeadline";
+import { Portrait } from "../components/Portrait";
 import { drawRule, settle } from "../config/variants";
 
 interface Props {
@@ -22,11 +23,10 @@ export function Entrance({ reduced, coarse, small, revealed, detailsRevealed, on
   // The short bio lives on the About scene; here it is only read out to screen readers.
   const st = settle(reduced);
   return (
-    <div className="relative h-full w-full">
+    <div className="legible relative h-full w-full">
       <motion.div
         className="absolute left-[6vw] right-0 top-[15vh] sm:top-[16vh]"
         style={{
-          textShadow: small ? "0 2px 24px rgba(20,30,92,0.55)" : undefined,
           // Short laptop screens: let the headline shrink with the height too, so it never meets the card below.
           ["--text-headline" as string]: "min(clamp(3.2rem, 0.5rem + 9.4vw, 10.5rem), 15vh)",
         }}
@@ -47,7 +47,11 @@ export function Entrance({ reduced, coarse, small, revealed, detailsRevealed, on
         className="absolute inset-x-0 flex flex-col items-start gap-6 px-6 sm:flex-row sm:items-end sm:justify-between sm:pl-[6vw] sm:pr-9"
         style={{ bottom: "calc(var(--safe-bottom) + 5.2rem)" }}
       >
-        <aside aria-label="About" className="float-slow w-[min(26rem,100%)]">
+        <aside aria-label="About" className="flex w-[min(36rem,100%)] items-end gap-5 sm:gap-7">
+          <motion.div variants={st} custom={0} className="h-[8.5rem] w-[6.8rem] sm:h-[13.5rem] sm:w-[10.5rem]">
+            <Portrait className="h-full w-full" />
+          </motion.div>
+          <div className="min-w-0 flex-1">
           <motion.div variants={drawRule(reduced)} custom={0} className="mb-3 h-px origin-left bg-rule" />
           <motion.p variants={st} custom={1} className="text-body font-semibold" style={{ fontVariationSettings: '"wdth" 100' }}>
             {identity.displayName}
@@ -86,6 +90,7 @@ export function Entrance({ reduced, coarse, small, revealed, detailsRevealed, on
               </a>
             )}
           </motion.div>
+          </div>
         </aside>
 
         <motion.p variants={st} custom={0} className="hidden max-w-[24ch] text-right font-mono text-note text-dim sm:block">
